@@ -1,0 +1,9 @@
+<%
+  react_props = {
+    i18n: t('devise.registrations.new'),
+    csrfToken: form_authenticity_token,
+    logInPath: new_session_path(resource_name)
+  }
+%>
+
+<%= react_component("SignUp", props: react_props) %>
