@@ -1,0 +1,75 @@
+es:
+  navbar:
+    brand: "Plantilla Blogify"
+    posts_link: "Publicaciones"
+    log_out: "Cerrar Sesión"
+    log_in: "Iniciar Sesión"
+    sign_up: "Registrarse"
+  
+  homepage:
+    title: "Bienvenido al Template"
+    subtitle: "Una aplicación moderna construida con lo mejor de dos mundos. Este proyecto integra Rails, React, y shadcn/ui a través de Shakapacker."
+    posts_button: "Ver los Posts"
+    source_button: "Código Fuente"
+    tech:
+      rails:
+        title: "Ruby on Rails 8"
+        description: "El backend robusto y elegante que potencia la aplicación."
+      react:
+        title: "React 19"
+        description: "Para construir interfaces de usuario interactivas y dinámicas."
+      shakapacker:
+        title: "Shakapacker"
+        description: "El puente moderno entre Rails y Webpack para la gestión de assets."
+      shadcn:
+        title: "shadcn/ui + Tailwind"
+        description: "Componentes hermosos y un framework CSS para un diseño impecable."
+      axios:
+        title: "Axios"
+        description: "Una biblioteca para hacer solicitudes HTTP desde el navegador."
+  
+  posts_page:
+    viewer:
+      title: "Publicaciones"
+      reload_button: "Recargar Posts"
+      loading: "Cargando publicaciones..."
+      error: "No se pudieron cargar las publicaciones."
+    form:
+      create_button: "Crear Post"
+      title: "Crear Nueva Publicación"
+      description: "Completa los campos para crear un nuevo post."
+      title_label: "Título"
+      body_label: "Contenido"
+      submit_button: "Guardar Post"
+      submitting_button: "Guardando..."
+      errors:
+        title: "El título %{messages}"
+        body: "El contenido %{messages}"
+        unexpected: "Ocurrió un error inesperado. Inténtalo de nuevo."
+  
+  devise:
+    sessions:
+      new:
+        title: "Iniciar Sesión"
+        description: "Ingresa tu email y contraseña para acceder a tu cuenta."
+        email_label: "Correo Electrónico"
+        password_label: "Contraseña"
+        remember_me_label: "Recordarme"
+        submit_button: "Iniciar Sesión"
+        sign_up_link: "Registrarse"
+        forgot_password_link: "¿Olvidaste tu contraseña?"
+    registrations:
+      new:
+        title: "Registrarse"
+        description: "Crea una nueva cuenta para comenzar."
+        email_label: "Correo Electrónico"
+        password_label: "Contraseña"
+        password_confirmation_label: "Confirmación de contraseña"
+        submit_button: "Registrarse"
+        log_in_link: "Iniciar Sesión"
+    passwords:
+      new:
+        title: "¿Olvidaste tu contraseña?"
+        description: "Ingresa tu email y te enviaremos instrucciones para restablecer tu contraseña."
+        email_label: "Correo Electrónico"
+        submit_button: "Enviarme instrucciones"

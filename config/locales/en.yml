@@ -1,0 +1,75 @@
+en:
+  navbar:
+    brand: "Blogify Template"
+    posts_link: "Posts"
+    log_out: "Log out"
+    log_in: "Log in"
+    sign_up: "Sign up"
+
+  homepage:
+    title: "Welcome to the Template"
+    subtitle: "A modern application built with the best of both worlds. This project integrates Rails, React, and shadcn/ui through Shakapacker."
+    posts_button: "View Posts"
+    source_button: "Source Code"
+    tech:
+      rails:
+        title: "Ruby on Rails 8"
+        description: "The robust and elegant backend that powers the application."
+      react:
+        title: "React 19"
+        description: "To build interactive and dynamic user interfaces."
+      shakapacker:
+        title: "Shakapacker"
+        description: "The modern bridge between Rails and Webpack for asset management."
+      shadcn:
+        title: "shadcn/ui + Tailwind"
+        description: "Beautiful components and a CSS framework for a flawless design."
+      axios:
+        title: "Axios"
+        description: "A library for making HTTP requests from the browser."
+  
+  posts_page:
+    viewer:
+      title: "Publications"
+      reload_button: "Reload Posts"
+      loading: "Loading publications..."
+      error: "Could not load publications."
+    form:
+      create_button: "Create Post"
+      title: "Create New Publication"
+      description: "Complete the fields to create a new post."
+      title_label: "Title"
+      body_label: "Content"
+      submit_button: "Save Post"
+      submitting_button: "Saving..."
+      errors:
+        title: "Title %{messages}"
+        body: "Body %{messages}"
+        unexpected: "An unexpected error occurred. Please try again."
+  
+  devise:
+    sessions:
+      new:
+        title: "Log in"
+        description: "Enter your email and password to access your account."
+        email_label: "Email"
+        password_label: "Password"
+        remember_me_label: "Remember me"
+        submit_button: "Log in"
+        sign_up_link: "Sign up"
+        forgot_password_link: "Forgot your password?"
+    registrations:
+      new:
+        title: "Sign up"
+        description: "Create a new account to get started."
+        email_label: "Email"
+        password_label: "Password"
+        password_confirmation_label: "Password confirmation"
+        submit_button: "Sign up"
+        log_in_link: "Log in"
+    passwords:
+      new:
+        title: "Forgot your password?"
+        description: "Enter your email and we will send you instructions to reset your password."
+        email_label: "Email"
+        submit_button: "Send me reset instructions"

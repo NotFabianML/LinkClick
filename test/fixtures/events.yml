@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  session: one
+  start_time: 2025-08-14 19:45:49
+  end_time: 2025-08-14 19:45:49
+  google_calendar_event_id: MyString
+
+two:
+  session: two
+  start_time: 2025-08-14 19:45:49
+  end_time: 2025-08-14 19:45:49
+  google_calendar_event_id: MyString

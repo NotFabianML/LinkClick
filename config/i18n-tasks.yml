@@ -1,0 +1,5 @@
+# config/i18n-tasks.yml
+base_locale: en
+data:
+  read:
+    - config/locales/%{locale}.yml
