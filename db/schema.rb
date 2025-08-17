@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_15_062303) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_15_180502) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -108,16 +108,20 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_15_062303) do
     t.text "bio"
     t.string "linkedin_url"
     t.string "github_url"
-    t.integer "role", default: 0
+    t.integer "role", default: 0, null: false
     t.string "phone"
     t.string "country"
     t.string "website"
     t.string "university"
-    t.integer "profile_visibility"
-    t.boolean "show_email"
-    t.boolean "show_phone"
-    t.boolean "show_activity"
-    t.boolean "allow_messages"
+    t.integer "profile_visibility", default: 0, null: false
+    t.boolean "show_email", default: false, null: false
+    t.boolean "show_phone", default: false, null: false
+    t.boolean "show_activity", default: true, null: false
+    t.boolean "allow_messages", default: true, null: false
+    t.boolean "email_notifications", default: true, null: false
+    t.boolean "session_reminders", default: true, null: false
+    t.boolean "connection_requests", default: true, null: false
+    t.boolean "marketing_emails", default: false, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

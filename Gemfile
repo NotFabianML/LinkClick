@@ -49,6 +49,9 @@ group :development, :test do
 
   # i18n tasks for managing translations
   gem "i18n-tasks", require: false
+
+  # faker for generating fake data
+  gem "faker"
 end
 
 group :development do
