@@ -46,7 +46,10 @@ import {
   MessageSquare,
   Users,
   Clock,
+  Eye,
+  EyeOff,
 } from "lucide-react";
+import axios from "axios";
 
 type MyProfilePageProps = SharedProps & {
   user_data: UserProfileData;
@@ -56,6 +59,9 @@ type MyProfilePageProps = SharedProps & {
 const MyProfilePage = (props: MyProfilePageProps) => {
   const [user, setUser] = useState(props.user_data);
   const [isEditing, setIsEditing] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
+
   const [activeTab, setActiveTab] = useState("profile");
   const [newSkill, setNewSkill] = useState("");
   const [newInterest, setNewInterest] = useState("");
@@ -68,9 +74,69 @@ const MyProfilePage = (props: MyProfilePageProps) => {
     return <div className="container mx-auto p-8">Cargando perfil...</div>;
   }
 
-  const handleSave = () => {
-    setIsEditing(false);
-    console.log("Guardando datos del usuario:", user);
+  const handleSave = async () => {
+    setIsSaving(true);
+    setSaveError(null);
+    const csrfToken = document.querySelector<HTMLMetaElement>(
+      "meta[name='csrf-token']"
+    )?.content;
+    const locale =
+      (window as any).sharedProps?.locale_data?.current_locale || "en";
+
+    try {
+      await axios.patch(
+        `/${locale}/profile`,
+        { user: user },
+        { headers: { "X-CSRF-Token": csrfToken } }
+      );
+      setIsEditing(false);
+    } catch (error: any) {
+      console.error("Error saving profile:", error);
+      const errorMessages = error.response?.data?.errors || [
+        "Ocurrió un error inesperado.",
+      ];
+      setSaveError(errorMessages.join(", "));
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const handleSettingChange = async (key: string, value: any) => {
+    const originalUser = { ...user };
+
+    const updatedField = key.split(".");
+    if (updatedField.length > 1) {
+      setUser((prevUser) => {
+        const parent = prevUser[updatedField[0] as keyof typeof prevUser];
+        return {
+          ...prevUser,
+          [updatedField[0]]:
+            parent && typeof parent === "object"
+              ? {
+                  ...parent,
+                  [updatedField[1]]: value,
+                }
+              : { [updatedField[1]]: value },
+        };
+      });
+    }
+
+    const csrfToken = document.querySelector<HTMLMetaElement>(
+      "meta[name='csrf-token']"
+    )?.content;
+    const locale =
+      (window as any).sharedProps?.locale_data?.current_locale || "en";
+
+    try {
+      await axios.patch(
+        `/${locale}/profile`,
+        { user: { [updatedField[1]]: value } },
+        { headers: { "X-CSRF-Token": csrfToken } }
+      );
+    } catch (error) {
+      console.error("Error saving setting:", error);
+      setUser(originalUser);
+    }
   };
 
   const addSkill = () => {
@@ -136,11 +202,19 @@ const MyProfilePage = (props: MyProfilePageProps) => {
               onClick={() => (isEditing ? handleSave() : setIsEditing(true))}
               className="gap-2"
               variant={isEditing ? "default" : "outline"}
+              disabled={isSaving}
             >
               {isEditing ? (
-                <>
-                  <Save className="h-4 w-4" /> Guardar Cambios
-                </>
+                isSaving ? (
+                  <>
+                    <Spinner className="mr-2 h-4 w-4 animate-spin" />{" "}
+                    Guardando...
+                  </>
+                ) : (
+                  <>
+                    <Save className="h-4 w-4" /> Guardar Cambios
+                  </>
+                )
               ) : (
                 <>
                   <Edit className="h-4 w-4" /> Editar Perfil
@@ -148,6 +222,9 @@ const MyProfilePage = (props: MyProfilePageProps) => {
               )}
             </Button>
           </div>
+          {saveError && (
+            <p className="text-red-500 text-center mt-2">{saveError}</p>
+          )}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
@@ -531,63 +608,266 @@ const MyProfilePage = (props: MyProfilePageProps) => {
                 </Card>
               </TabsContent>
 
-              {/* Pestaña de Privacidad */}
-              <TabsContent value="privacy">
+              {/* Pestaña de Configuración */}
+              <TabsContent value="settings" className="space-y-6">
                 <Card className="shadow-lg border-0 bg-card/50 backdrop-blur-sm">
-                  <CardHeader>
-                    <CardTitle>Configuración de Privacidad</CardTitle>
+                  <CardHeader className="border-b bg-muted/30">
+                    <CardTitle className="flex items-center gap-2">
+                      <Settings className="h-5 w-5 text-primary" />
+                      Configuración de la Cuenta
+                    </CardTitle>
+                    <CardDescription>
+                      Gestiona tus preferencias y notificaciones de la cuenta.
+                    </CardDescription>
                   </CardHeader>
                   <CardContent className="p-6 space-y-6">
-                    <div className="space-y-2">
-                      <Label>Visibilidad del Perfil</Label>
-                      <Select
-                        value={user.privacy.profile_visibility}
-                        onValueChange={(value) =>
-                          setUser({
-                            ...user,
-                            privacy: {
-                              ...user.privacy,
-                              profile_visibility: value,
-                            },
-                          })
-                        }
-                        disabled={!isEditing}
-                      >
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="public_profile">
-                            Público - Cualquiera puede verlo
-                          </SelectItem>
-                          <SelectItem value="connections_only">
-                            Solo Conexiones
-                          </SelectItem>
-                          <SelectItem value="private_profile">
-                            Privado - Solo yo
-                          </SelectItem>
-                        </SelectContent>
-                      </Select>
+                    <div className="space-y-4">
+                      {/* Notificaciones por Email */}
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <Label className="text-base font-medium">
+                            Notificaciones por Email
+                          </Label>
+                          <p className="text-sm text-muted-foreground">
+                            Recibe actualizaciones por correo sobre tus
+                            sesiones.
+                          </p>
+                        </div>
+                        <Switch
+                          checked={user.settings.email_notifications}
+                          onCheckedChange={(checked) =>
+                            handleSettingChange(
+                              "settings.email_notifications",
+                              checked
+                            )
+                          }
+                        />
+                      </div>
+                      {/* Recordatorios de Sesión */}
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <Label className="text-base font-medium">
+                            Recordatorios de Sesión
+                          </Label>
+                          <p className="text-sm text-muted-foreground">
+                            Recibe notificaciones antes de que comiencen tus
+                            sesiones.
+                          </p>
+                        </div>
+                        <Switch
+                          checked={user.settings.session_reminders}
+                          onCheckedChange={(checked) =>
+                            handleSettingChange(
+                              "settings.session_reminders",
+                              checked
+                            )
+                          }
+                        />
+                      </div>
+                      {/* Solicitudes de Conexión */}
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <Label className="text-base font-medium">
+                            Solicitudes de Conexión
+                          </Label>
+                          <p className="text-sm text-muted-foreground">
+                            Permite que otros usuarios te envíen solicitudes de
+                            conexión.
+                          </p>
+                        </div>
+                        <Switch
+                          checked={user.settings.connection_requests}
+                          onCheckedChange={(checked) =>
+                            handleSettingChange(
+                              "settings.connection_requests",
+                              checked
+                            )
+                          }
+                        />
+                      </div>
+                      {/* Emails de Marketing */}
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <Label className="text-base font-medium">
+                            Emails de Marketing
+                          </Label>
+                          <p className="text-sm text-muted-foreground">
+                            Recibe actualizaciones sobre nuevas funcionalidades
+                            y noticias.
+                          </p>
+                        </div>
+                        <Switch
+                          checked={user.settings.marketing_emails}
+                          onCheckedChange={(checked) =>
+                            handleSettingChange(
+                              "settings.marketing_emails",
+                              checked
+                            )
+                          }
+                        />
+                      </div>
                     </div>
-                    <div className="flex items-center justify-between">
+                  </CardContent>
+                </Card>
+
+                <Card className="shadow-lg border-0 bg-card/50 backdrop-blur-sm">
+                  <CardHeader className="border-b bg-muted/30">
+                    <CardTitle className="text-red-600">
+                      Zona de Peligro
+                    </CardTitle>
+                    <CardDescription>
+                      Acciones irreversibles y destructivas.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="p-6 space-y-4">
+                    <div className="flex items-center justify-between p-4 border border-red-200 dark:border-red-900/50 rounded-lg">
                       <div>
-                        <Label className="font-medium">
-                          Mostrar Email en Perfil
+                        <Label className="text-base font-medium text-red-600">
+                          Eliminar Cuenta
                         </Label>
                         <p className="text-sm text-muted-foreground">
-                          Permitir que otros vean tu email.
+                          Elimina permanentemente tu cuenta y todos los datos
+                          asociados.
                         </p>
                       </div>
-                      <Switch
-                        checked={user.privacy.show_email}
-                        onCheckedChange={(checked) =>
-                          setUser({
-                            ...user,
-                            privacy: { ...user.privacy, show_email: checked },
-                          })
-                        }
-                        disabled={!isEditing}
-                      />
+                      <Button variant="destructive">Eliminar Cuenta</Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              {/* Pestaña de Privacidad */}
+              <TabsContent value="privacy" className="space-y-6">
+                <Card className="shadow-lg border-0 bg-card/50 backdrop-blur-sm">
+                  <CardHeader className="border-b bg-muted/30">
+                    <CardTitle className="flex items-center gap-2">
+                      <Shield className="h-5 w-5 text-primary" />
+                      Configuración de Privacidad
+                    </CardTitle>
+                    <CardDescription>
+                      Controla quién puede ver tu información y actividad.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="p-6 space-y-6">
+                    <div className="space-y-4">
+                      {/* Visibilidad del Perfil */}
+                      <div className="space-y-2">
+                        <Label className="text-base font-medium">
+                          Visibilidad del Perfil
+                        </Label>
+                        <Select
+                          value={user.privacy.profile_visibility}
+                          onValueChange={(value) =>
+                            handleSettingChange(
+                              "privacy.profile_visibility",
+                              value
+                            )
+                          }
+                        >
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="public_profile">
+                              Público - Cualquiera puede verlo
+                            </SelectItem>
+                            <SelectItem value="connections_only">
+                              Solo Conexiones
+                            </SelectItem>
+                            <SelectItem value="private_profile">
+                              Privado - Solo yo
+                            </SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      {/* Mostrar Email */}
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <Label className="text-base font-medium flex items-center gap-2">
+                            {user.privacy.show_email ? (
+                              <Eye className="h-4 w-4" />
+                            ) : (
+                              <EyeOff className="h-4 w-4" />
+                            )}
+                            Mostrar Correo Electrónico
+                          </Label>
+                          <p className="text-sm text-muted-foreground">
+                            Permitir que otros vean tu email.
+                          </p>
+                        </div>
+                        <Switch
+                          checked={user.privacy.show_email}
+                          onCheckedChange={(checked) =>
+                            handleSettingChange("privacy.show_email", checked)
+                          }
+                        />
+                      </div>
+
+                      {/* Mostrar Teléfono */}
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <Label className="text-base font-medium flex items-center gap-2">
+                            {user.privacy.show_phone ? (
+                              <Eye className="h-4 w-4" />
+                            ) : (
+                              <EyeOff className="h-4 w-4" />
+                            )}
+                            Mostrar Número de Teléfono
+                          </Label>
+                          <p className="text-sm text-muted-foreground">
+                            Permitir que otros vean tu teléfono.
+                          </p>
+                        </div>
+                        <Switch
+                          checked={user.privacy.show_phone}
+                          onCheckedChange={(checked) =>
+                            handleSettingChange("privacy.show_phone", checked)
+                          }
+                        />
+                      </div>
+
+                      {/* Mostrar Actividad */}
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <Label className="text-base font-medium">
+                            Mostrar Actividad
+                          </Label>
+                          <p className="text-sm text-muted-foreground">
+                            Mostrar tu actividad reciente a otros.
+                          </p>
+                        </div>
+                        <Switch
+                          checked={user.privacy.show_activity}
+                          onCheckedChange={(checked) =>
+                            handleSettingChange(
+                              "privacy.show_activity",
+                              checked
+                            )
+                          }
+                        />
+                      </div>
+
+                      {/* Permitir Mensajes */}
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <Label className="text-base font-medium">
+                            Permitir Mensajes
+                          </Label>
+                          <p className="text-sm text-muted-foreground">
+                            Dejar que otros te envíen mensajes directos.
+                          </p>
+                        </div>
+                        <Switch
+                          checked={user.privacy.allow_messages}
+                          onCheckedChange={(checked) =>
+                            handleSettingChange(
+                              "privacy.allow_messages",
+                              checked
+                            )
+                          }
+                        />
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
@@ -599,5 +879,20 @@ const MyProfilePage = (props: MyProfilePageProps) => {
     </div>
   );
 };
+
+const Spinner = (props: any) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+  </svg>
+);
 
 export default MyProfilePage;

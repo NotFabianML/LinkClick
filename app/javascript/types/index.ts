@@ -5,6 +5,7 @@ export * from './posts.types';
 export * from './devise.types';
 export * from './profiles.types';
 export * from './users.types';
+export * from './sessions.types';
 
 export interface LocaleData {
   en_url: string;

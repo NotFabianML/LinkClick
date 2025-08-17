@@ -65,6 +65,13 @@ export interface UserProfileData {
 
   // Actividad reciente
   recent_activity: RecentActivity[];
+
+  settings: {
+    email_notifications: boolean;
+    session_reminders: boolean;
+    connection_requests: boolean;
+    marketing_emails: boolean;
+  };
 }
 
 

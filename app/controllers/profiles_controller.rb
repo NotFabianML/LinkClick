@@ -37,6 +37,14 @@ class ProfilesController < ApplicationController
         interests: @user.interests.map { |i| { id: i.id, name: i.name } },
         badges: @user.badges.map { |b| { id: b.id, name: b.name, description: b.description } },
 
+        # --- Configuraciones ---
+        settings: {
+          email_notifications: @user.email_notifications,
+          session_reminders: @user.session_reminders,
+          connection_requests: @user.connection_requests,
+          marketing_emails: @user.marketing_emails
+        },
+
         # --- Configuraciones de Privacidad ---
         privacy: {
           profile_visibility: User::PROFILE_VISIBILITY.key(@user.profile_visibility).to_s,
@@ -53,7 +61,7 @@ class ProfilesController < ApplicationController
           rating: @user.received_feedbacks.average(:rating)&.round(1) || 0,
           achievements: @user.badges.count,
           hours_learned: hours_learned.round(1),
-          connections: 0 # Placeholder por ahora
+          connections: 0
         },
 
         # --- Datos Derivados (Actividad Reciente) ---
@@ -68,6 +76,49 @@ class ProfilesController < ApplicationController
   end
 
   def update
-    # Lógica para recibir los datos del formulario de edición y actualizar al current_user
+    settings_params = profile_params[:settings] || {}
+    privacy_params = profile_params[:privacy] || {}
+
+    user_params = profile_params.except(:settings, :privacy)
+                                .merge(settings_params)
+                                .merge(privacy_params)
+
+    if current_user.update(user_params)
+      render json: { message: "Profile updated successfully!" }, status: :ok
+    else
+      render json: { errors: current_user.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  # --- STRONG PARAMETERS ---
+  def profile_params
+    params.require(:user).permit(
+      :first_name,
+      :last_name,
+      :bio,
+      :phone,
+      :country,
+      :website,
+      :university,
+      :linkedin_url,
+      :github_url,
+
+      settings: [
+        :email_notifications,
+        :session_reminders,
+        :connection_requests,
+        :marketing_emails
+      ],
+
+      privacy: [
+        :profile_visibility,
+        :show_email,
+        :show_phone,
+        :show_activity,
+        :allow_messages
+      ]
+    )
   end
 end
