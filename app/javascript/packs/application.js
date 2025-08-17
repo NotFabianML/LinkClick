@@ -18,6 +18,8 @@ import DashboardComponent from "../pages/Dashboard"
 import BrowseComponent from "../pages/Browse"
 import MyProfileComponent from "../pages/MyProfile";
 import UserProfileComponent from "../pages/UserProfile";
+import CreateSessionComponent from "../pages/CreateSession";
+import SessionDetailComponent from "../pages/SessionDetail";
 
 
 // 3. Envuelve cada componente que necesite los providers
@@ -31,6 +33,8 @@ const Dashboard = withProviders(DashboardComponent);
 const Browse = withProviders(BrowseComponent);
 const MyProfile = withProviders(MyProfileComponent);
 const UserProfile = withProviders(UserProfileComponent);
+const CreateSession = withProviders(CreateSessionComponent);
+const SessionDetail = withProviders(SessionDetailComponent);
 
 // 4. Registra las versiones finales "envueltas"
 ReactOnRails.register({
@@ -43,7 +47,9 @@ ReactOnRails.register({
   Dashboard,
   Browse,
   MyProfile,
-  UserProfile
+  UserProfile,
+  CreateSession,
+  SessionDetail
 });
 
 document.addEventListener("turbo:load", () => {
