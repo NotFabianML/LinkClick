@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { User } from "../types/users.types";
-import { SharedProps } from "../types";
+import { SharedProps, User, SessionCardData } from "../types";
 import axios from "axios";
 
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
@@ -35,109 +34,7 @@ import {
   Video,
   Users2,
 } from "lucide-react";
-
-const mockCurrentUser = {
-  name: "Alex Rodriguez",
-  firstName: "Alex",
-  avatar: "/placeholder.svg?height=40&width=40",
-  initials: "AR",
-};
-
-const mockSessions = [
-  {
-    id: "1",
-    title: "React Hooks Deep Dive",
-    description: "Master React Hooks with hands-on examples and best practices",
-    host: "Sarah Chen",
-    hostAvatar: "/placeholder.svg?height=32&width=32",
-    hostInitials: "SC",
-    date: "2024-01-15",
-    time: "2:00 PM",
-    duration: "2 hours",
-    type: "Workshop",
-    difficulty: "Intermediate",
-    maxParticipants: 12,
-    currentParticipants: 8,
-    skills: ["React", "JavaScript", "Hooks"],
-    location: "Online",
-    price: "Free",
-  },
-  {
-    id: "2",
-    title: "TypeScript Fundamentals",
-    description:
-      "Learn TypeScript from scratch and improve your JavaScript development",
-    host: "David Kim",
-    hostAvatar: "/placeholder.svg?height=32&width=32",
-    hostInitials: "DK",
-    date: "2024-01-18",
-    time: "4:30 PM",
-    duration: "3 hours",
-    type: "Tutorial",
-    difficulty: "Beginner",
-    maxParticipants: 15,
-    currentParticipants: 12,
-    skills: ["TypeScript", "JavaScript"],
-    location: "Online",
-    price: "Free",
-  },
-  {
-    id: "3",
-    title: "Full-Stack Project Collaboration",
-    description:
-      "Build a complete web application together using modern technologies",
-    host: "Emma Davis",
-    hostAvatar: "/placeholder.svg?height=32&width=32",
-    hostInitials: "ED",
-    date: "2024-01-20",
-    time: "10:00 AM",
-    duration: "4 hours",
-    type: "Project",
-    difficulty: "Advanced",
-    maxParticipants: 6,
-    currentParticipants: 4,
-    skills: ["React", "Node.js", "MongoDB", "GraphQL"],
-    location: "Online",
-    price: "Free",
-  },
-  {
-    id: "4",
-    title: "Python for Data Science",
-    description: "Introduction to data analysis and visualization with Python",
-    host: "Carlos Martinez",
-    hostAvatar: "/placeholder.svg?height=32&width=32",
-    hostInitials: "CM",
-    date: "2024-01-22",
-    time: "6:00 PM",
-    duration: "2.5 hours",
-    type: "Study Group",
-    difficulty: "Intermediate",
-    maxParticipants: 10,
-    currentParticipants: 7,
-    skills: ["Python", "Pandas", "NumPy", "Matplotlib"],
-    location: "Online",
-    price: "Free",
-  },
-  {
-    id: "5",
-    title: "Vue.js Component Architecture",
-    description:
-      "Design scalable Vue.js applications with proper component structure",
-    host: "Lisa Wang",
-    hostAvatar: "/placeholder.svg?height=32&width=32",
-    hostInitials: "LW",
-    date: "2024-01-25",
-    time: "3:00 PM",
-    duration: "2 hours",
-    type: "Workshop",
-    difficulty: "Intermediate",
-    maxParticipants: 8,
-    currentParticipants: 5,
-    skills: ["Vue.js", "JavaScript", "Component Design"],
-    location: "Online",
-    price: "Free",
-  },
-];
+import { useAppNavigation } from "../hooks/useAppNavigation";
 
 const availableInterests = [
   "React",
@@ -166,9 +63,16 @@ const BrowsePage = () => {
   const [loadingUsers, setLoadingUsers] = useState(true);
   const [errorUsers, setErrorUsers] = useState<string | null>(null);
 
+  const [sessions, setSessions] = useState<SessionCardData[]>([]);
+  const [loadingSessions, setLoadingSessions] = useState(true);
+  const [errorSessions, setErrorSessions] = useState<string | null>(null);
+
   const sharedProps: SharedProps = (window as any).sharedProps || {};
+  const { navigate } = useAppNavigation();
 
   useEffect(() => {
+    const locale = sharedProps.locale_data?.current_locale || "en";
+
     const fetchUsers = async () => {
       try {
         const locale = sharedProps.locale_data?.current_locale || "en";
@@ -193,7 +97,20 @@ const BrowsePage = () => {
       }
     };
 
+    const fetchSessions = async () => {
+      try {
+        const response = await axios.get(`/${locale}/sessions.json`);
+        setSessions(response.data);
+      } catch (error) {
+        console.error("Error fetching sessions:", error);
+        setErrorSessions("Could not load sessions. Please try again later.");
+      } finally {
+        setLoadingSessions(false);
+      }
+    };
+
     fetchUsers();
+    fetchSessions();
   }, []);
 
   const [activeTab, setActiveTab] = useState("users");
@@ -220,7 +137,7 @@ const BrowsePage = () => {
     return matchesSearch && matchesRole && matchesInterests;
   });
 
-  const filteredSessions = mockSessions.filter((session) => {
+  const filteredSessions = sessions.filter((session) => {
     const matchesSearch =
       session.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       session.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -544,124 +461,149 @@ const BrowsePage = () => {
               </TabsContent>
 
               <TabsContent value="sessions">
-                <div className="mb-6">
-                  <p className="text-muted-foreground">
-                    {filteredSessions.length} session
-                    {filteredSessions.length !== 1 ? "s" : ""} found
+                {loadingSessions && (
+                  <p className="text-center text-muted-foreground py-12">
+                    Cargando sesiones...
                   </p>
-                </div>
+                )}
+                {errorSessions && (
+                  <p className="text-center text-red-500 py-12">
+                    {errorSessions}
+                  </p>
+                )}
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {filteredSessions.map((session) => (
-                    <a key={session.id} href={`/session/${session.id}`}>
-                      <Card className="bg-card/50 backdrop-blur-sm border-0 hover:bg-card/70 transition-all duration-300 cursor-pointer shadow-lg">
-                        <CardContent className="p-6">
-                          <div className="flex items-start justify-between mb-4">
-                            <div className="flex-1">
-                              <h3 className="font-semibold text-lg text-foreground mb-2">
-                                {session.title}
-                              </h3>
-                              <p className="text-sm text-muted-foreground mb-3 line-clamp-2">
-                                {session.description}
-                              </p>
-                            </div>
-                            <Badge
-                              variant={
-                                session.difficulty === "Advanced"
-                                  ? "destructive"
-                                  : session.difficulty === "Intermediate"
-                                  ? "default"
-                                  : "secondary"
-                              }
-                              className="ml-2"
-                            >
-                              {session.difficulty}
-                            </Badge>
-                          </div>
+                {!loadingSessions && !errorSessions && (
+                  <>
+                    <div className="mb-6">
+                      <p className="text-muted-foreground">
+                        {filteredSessions.length} sesión
+                        {filteredSessions.length !== 1 ? "es" : ""} encontrada
+                      </p>
+                    </div>
 
-                          <div className="flex items-center gap-3 mb-4">
-                            <Avatar className="h-8 w-8">
-                              <AvatarImage
-                                src={session.hostAvatar || "/placeholder.svg"}
-                                alt={session.host}
-                              />
-                              <AvatarFallback className="text-xs">
-                                {session.hostInitials}
-                              </AvatarFallback>
-                            </Avatar>
-                            <div>
-                              <p className="text-sm font-medium text-foreground">
-                                {session.host}
-                              </p>
-                              <Badge variant="outline" className="text-xs">
-                                {session.type}
-                              </Badge>
-                            </div>
-                          </div>
-
-                          <div className="space-y-2 mb-4">
-                            <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                              <span className="flex items-center gap-1">
-                                <Calendar className="h-4 w-4" />
-                                {session.date}
-                              </span>
-                              <span className="flex items-center gap-1">
-                                <Clock className="h-4 w-4" />
-                                {session.time}
-                              </span>
-                            </div>
-                            <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                              <span className="flex items-center gap-1">
-                                <Video className="h-4 w-4" />
-                                {session.duration}
-                              </span>
-                              <span className="flex items-center gap-1">
-                                <Users2 className="h-4 w-4" />
-                                {session.currentParticipants}/
-                                {session.maxParticipants}
-                              </span>
-                            </div>
-                          </div>
-
-                          <div className="space-y-2">
-                            <p className="text-sm text-muted-foreground">
-                              Skills:
-                            </p>
-                            <div className="flex flex-wrap gap-1">
-                              {session.skills
-                                .slice(0, 3)
-                                .map((skill, index) => (
-                                  <Badge
-                                    key={index}
-                                    variant="outline"
-                                    className="text-xs"
-                                  >
-                                    {skill}
-                                  </Badge>
-                                ))}
-                              {session.skills.length > 3 && (
-                                <Badge variant="outline" className="text-xs">
-                                  +{session.skills.length - 3} more
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {filteredSessions.map((session) => (
+                        <div
+                          key={session.id}
+                          onClick={() => navigate(`sessions/${session.id}`)}
+                          className="cursor-pointer"
+                        >
+                          <Card className="bg-card/50 backdrop-blur-sm border-0 hover:bg-card/70 transition-all duration-300 shadow-lg h-full flex flex-col">
+                            <CardContent className="p-6 flex flex-col flex-grow">
+                              <div className="flex items-start justify-between mb-4">
+                                <div className="flex-1">
+                                  <h3 className="font-semibold text-lg text-foreground mb-2">
+                                    {session.title}
+                                  </h3>
+                                  <p className="text-sm text-muted-foreground mb-3 line-clamp-2">
+                                    {session.description}
+                                  </p>
+                                </div>
+                                <Badge
+                                  variant={
+                                    session.difficulty === "Advanced"
+                                      ? "destructive"
+                                      : session.difficulty === "Intermediate"
+                                      ? "default"
+                                      : "secondary"
+                                  }
+                                  className="ml-2"
+                                >
+                                  {session.difficulty}
                                 </Badge>
-                              )}
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </a>
-                  ))}
-                </div>
+                              </div>
 
-                {filteredSessions.length === 0 && (
-                  <div className="text-center py-12">
-                    <Calendar className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                    <p className="text-muted-foreground mb-4">
-                      No sessions found matching your criteria.
-                    </p>
-                    <Button variant="outline" onClick={clearFilters}>
-                      Clear Filters
-                    </Button>
-                  </div>
+                              <div className="flex items-center gap-3 mb-4">
+                                <Avatar className="h-8 w-8">
+                                  <AvatarImage
+                                    src={session.host_avatar}
+                                    alt={session.host}
+                                  />
+                                  <AvatarFallback className="text-xs">
+                                    {session.host_initials}
+                                  </AvatarFallback>
+                                </Avatar>
+                                <div>
+                                  <p className="text-sm font-medium text-foreground">
+                                    {session.host}
+                                  </p>
+                                  <Badge variant="outline" className="text-xs">
+                                    {session.type}
+                                  </Badge>
+                                </div>
+                              </div>
+
+                              <div className="space-y-2 mb-4 mt-auto pt-4 border-t">
+                                <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                                  <span className="flex items-center gap-1">
+                                    <Calendar className="h-4 w-4" />
+                                    {session.date}
+                                  </span>
+                                  <span className="flex items-center gap-1">
+                                    <Clock className="h-4 w-4" />
+                                    {session.time}
+                                  </span>
+                                </div>
+                                <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                                  <span className="flex items-center gap-1">
+                                    <Video className="h-4 w-4" />
+                                    {session.duration}
+                                  </span>
+                                  <span className="flex items-center gap-1">
+                                    <Users2 className="h-4 w-4" />
+                                    {session.current_participants}
+                                    {session.max_participants}
+                                  </span>
+                                </div>
+                              </div>
+
+                              {session.skills.length > 0 && (
+                                <div className="space-y-2">
+                                  <p className="text-sm text-muted-foreground">
+                                    Habilidades:
+                                  </p>
+                                  <div className="flex flex-wrap gap-1">
+                                    {session.skills
+                                      .slice(0, 3)
+                                      .map((skill, index) => (
+                                        <Badge
+                                          key={index}
+                                          variant="outline"
+                                          className="text-xs"
+                                        >
+                                          {skill}
+                                        </Badge>
+                                      ))}
+                                    {session.skills.length > 3 && (
+                                      <Badge
+                                        variant="outline"
+                                        className="text-xs"
+                                      >
+                                        +{session.skills.length - 3} más
+                                      </Badge>
+                                    )}
+                                  </div>
+                                </div>
+                              )}
+                            </CardContent>
+                          </Card>
+                        </div>
+                      ))}
+                    </div>
+
+                    {filteredSessions.length === 0 && (
+                      <div className="text-center py-12">
+                        <Calendar className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                        <p className="text-muted-foreground mb-4">
+                          No se encontraron sesiones que coincidan con tus
+                          criterios.
+                        </p>
+                        <Button variant="outline" onClick={clearFilters}>
+                          Limpiar Filtros
+                        </Button>
+                      </div>
+                    )}
+                  </>
                 )}
               </TabsContent>
             </div>
