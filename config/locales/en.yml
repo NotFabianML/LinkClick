@@ -1,75 +1,410 @@
 en:
   navbar:
-    brand: "LinkClick Template"
-    posts_link: "Posts"
-    log_out: "Log out"
-    log_in: "Log in"
-    sign_up: "Sign up"
-
+    brand: LinkClick Template
+    sessions_link: Sessions
+    chat_link: Chat
+    leaderboard_link: Leaderboard
+    profile_link: My Profile
+    log_out: Log out
+    log_in: Log in
+    sign_up: Sign up
   homepage:
-    title: "Welcome to the Template"
-    subtitle: "A modern application built with the best of both worlds. This project integrates Rails, React, and shadcn/ui through Shakapacker."
-    posts_button: "View Posts"
-    source_button: "Source Code"
+    title: Welcome to the Template
+    subtitle: >-
+      A modern application built with the best of both worlds. This project
+      integrates Rails, React, and shadcn/ui through Shakapacker.
+    posts_button: View Posts
+    source_button: Source Code
     tech:
       rails:
-        title: "Ruby on Rails 8"
-        description: "The robust and elegant backend that powers the application."
+        title: Ruby on Rails 8
+        description: The robust and elegant backend that powers the application.
       react:
-        title: "React 19"
-        description: "To build interactive and dynamic user interfaces."
+        title: React 19
+        description: To build interactive and dynamic user interfaces.
       shakapacker:
-        title: "Shakapacker"
-        description: "The modern bridge between Rails and Webpack for asset management."
+        title: Shakapacker
+        description: The modern bridge between Rails and Webpack for asset management.
       shadcn:
-        title: "shadcn/ui + Tailwind"
-        description: "Beautiful components and a CSS framework for a flawless design."
+        title: shadcn/ui + Tailwind
+        description: Beautiful components and a CSS framework for a flawless design.
       axios:
-        title: "Axios"
-        description: "A library for making HTTP requests from the browser."
-  
-  posts_page:
-    viewer:
-      title: "Publications"
-      reload_button: "Reload Posts"
-      loading: "Loading publications..."
-      error: "Could not load publications."
-    form:
-      create_button: "Create Post"
-      title: "Create New Publication"
-      description: "Complete the fields to create a new post."
-      title_label: "Title"
-      body_label: "Content"
-      submit_button: "Save Post"
-      submitting_button: "Saving..."
-      errors:
-        title: "Title %{messages}"
-        body: "Body %{messages}"
-        unexpected: "An unexpected error occurred. Please try again."
+        title: Axios
+        description: A library for making HTTP requests from the browser.
   
   devise:
     sessions:
       new:
-        title: "Log in"
-        description: "Enter your email and password to access your account."
-        email_label: "Email"
-        password_label: "Password"
-        remember_me_label: "Remember me"
-        submit_button: "Log in"
-        sign_up_link: "Sign up"
-        forgot_password_link: "Forgot your password?"
+        title: Log in
+        description: Enter your email and password to access your account.
+        email_label: Email
+        password_label: Password
+        remember_me_label: Remember me
+        submit_button: Log in
+        sign_up_link: Sign up
+        forgot_password_link: Forgot your password?
     registrations:
       new:
-        title: "Sign up"
-        description: "Create a new account to get started."
-        email_label: "Email"
-        password_label: "Password"
-        password_confirmation_label: "Password confirmation"
-        submit_button: "Sign up"
-        log_in_link: "Log in"
+        title: Sign up
+        description: Create a new account to get started.
+        email_label: Email
+        password_label: Password
+        password_confirmation_label: Password confirmation
+        submit_button: Sign up
+        log_in_link: Log in
     passwords:
       new:
-        title: "Forgot your password?"
-        description: "Enter your email and we will send you instructions to reset your password."
-        email_label: "Email"
-        submit_button: "Send me reset instructions"
+        title: Forgot your password?
+        description: >-
+          Enter your email and we will send you instructions to reset your
+          password.
+        email_label: Email
+        submit_button: Send me reset instructions
+  dashboard_page:
+    welcome_back: Welcome back, %{name}!
+    subtitle: Here's a snapshot of your learning journey.
+    quick_actions_title: Quick Actions
+    upcoming_sessions_title: Upcoming Sessions
+    learning_goals_title: Learning Goals
+    recent_activity_title: Recent Activity
+    suggested_connections_title: Suggested Connections
+    stats:
+      sessions_completed: Sessions Completed
+      hours_learned: Hours Learned
+      connections: Connections
+      skills_acquired: Skills Acquired
+    actions:
+      create_session:
+        title: Create a Session
+        description: Share your knowledge and host a new study session.
+      browse_users:
+        title: Browse Users
+        description: Connect with other students and expand your network.
+      my_profile:
+        title: My Profile
+        description: Keep your skills and information up to date.
+    empty_states:
+      no_upcoming_sessions: No upcoming sessions yet
+      no_sessions_subtitle: When you join or create a session, it will appear here.
+      browse_sessions_button: Browse Sessions
+      no_goals: No learning goals set.
+      no_activity: No recent activity.
+      no_suggestions: No suggestions right now.
+    session_card:
+      join_button: Join
+      participants_count:
+        one: 1 participant
+        other: '%{count} participants'
+    progress_title: Your Progress
+    suggested_connections:
+      connect_button: "Connect"
+      sessions_completed_count:
+        one: "1 session completed"
+        other: "%{count} sessions completed"
+    
+  my_profile_page:
+    loading: "Loading profile..."
+    header:
+      title: "My Profile"
+      subtitle: "Manage your profile information and account settings."
+      edit_button: "Edit Profile"
+      save_button: "Save Changes"
+      saving_button: "Saving..."
+      error_saving: "An unexpected error occurred."
+    sidebar:
+      sessions: "Sessions"
+      rating: "Rating"
+    tabs:
+      profile: "Profile"
+      activity: "Activity"
+      settings: "Settings"
+      privacy: "Privacy"
+    profile_tab:
+      personal_info:
+        title: "Personal Information"
+        description: "Update your personal details and contact information."
+        first_name: "First Name"
+        last_name: "Last Name"
+        email: "Email"
+        phone: "Phone"
+        country: "Country"
+        university: "University"
+        bio: "Biography"
+        bio_placeholder: "Tell us a little about yourself..."
+      social_links:
+        title: "Social Links"
+        description: "Connect your social and professional profiles."
+        website: "Website"
+        website_placeholder: "https://yourwebsite.com"
+        github: "GitHub"
+        github_placeholder: "your-username"
+        linkedin: "LinkedIn"
+        linkedin_placeholder: "your-username"
+      interests_skills:
+        title: "Interests & Skills"
+        description: "The topics you're interested in and the technologies you master."
+        add_placeholder: "Add new interest or skill..."
+    activity_tab:
+      stats:
+        sessions_participated: "Sessions Participated"
+        hours_learned: "Hours Learned"
+        connections: "Connections"
+      recent_activity:
+        title: "Recent Activity"
+        description: "Your latest actions and achievements on the platform."
+        empty: "No recent activity to show."
+    settings_tab:
+      account_settings:
+        title: "Account Settings"
+        description: "Manage your account preferences and notifications."
+        email_notifications:
+          label: "Email Notifications"
+          description: "Receive email updates about your sessions."
+        session_reminders:
+          label: "Session Reminders"
+          description: "Get notified before your sessions start."
+        connection_requests:
+          label: "Connection Requests"
+          description: "Allow other users to send you connection requests."
+        marketing_emails:
+          label: "Marketing Emails"
+          description: "Receive updates on new features and news."
+      danger_zone:
+        title: "Danger Zone"
+        description: "Irreversible and destructive actions."
+        delete_account:
+          label: "Delete Account"
+          description: "Permanently delete your account and all associated data."
+          button: "Delete Account"
+          confirm_title: "Are you absolutely sure?"
+          confirm_description: "This action cannot be undone. This will permanently delete your account and remove your data from our servers."
+          confirm_cancel: "Cancel"
+          confirm_continue: "Continue"
+    privacy_tab:
+      title: "Privacy Settings"
+      description: "Control who can see your information and activity."
+      profile_visibility:
+        label: "Profile Visibility"
+        options:
+          public: "Public - Anyone can see it"
+          connections: "Connections Only"
+          private: "Private - Only me"
+      show_email:
+        label: "Show Email"
+        description: "Allow others to see your email."
+      show_phone:
+        label: "Show Phone Number"
+        description: "Allow others to see your phone."
+      show_activity:
+        label: "Show Activity"
+        description: "Show your recent activity to others."
+      allow_messages:
+        label: "Allow Messages"
+        description: "Let others send you direct messages."
+    toasts:
+      profile_update_success_title: "Profile Updated!"
+      profile_update_success_description: "Your changes have been saved successfully."
+      profile_update_error_title: "Error Saving"
+      account_delete_success_title: "Account Deleted"
+      account_delete_success_description: "Your account has been permanently deleted. You will be redirected."
+      account_delete_error_title: "Error"
+      account_delete_error_description: "Could not delete account. Please try again."
+  user_profile_page:
+    loading: "Loading profile..."
+    sidebar:
+      edit_profile_button: "Edit My Profile"
+    bio_card:
+      title: "Bio"
+      empty: "No bio available."
+    interests_card:
+      title: "Interests & Skills"
+      empty: "No interests or skills listed."
+    badges_card:
+      title: "Badges Earned"
+      empty: "No badges earned yet."
+    feedback_card:
+      title: "Feedback Received"
+      description: "Reviews from recent sessions and collaborations."
+      empty: "No feedback received yet."
+  create_session_page:
+    header:
+      title: "Create New Session"
+      subtitle: "Share your knowledge or learn something new."
+      back_button: "Back to Dashboard"
+    form:
+      error_summary: "Please correct the following errors:"
+      submit_button: "Create Session"
+      submitting_button: "Creating..."
+    basic_info:
+      title: "Basic Information"
+      session_title:
+        label: "Session Title *"
+        placeholder: "E.g., 'Introduction to React Basics'"
+      description:
+        label: "Description *"
+        placeholder: "Describe what participants will learn and what to expect."
+    session_type:
+      title: "Session Type"
+      description: "Choose the format that best fits your activity."
+      types:
+        quick_tutoring:
+          label: "Quick Tutoring"
+          description: "Short, focused help session"
+        deep_study:
+          label: "Deep Study Session"
+          description: "In-depth learning session"
+        project_collab:
+          label: "Project Collaboration"
+          description: "Work on projects together"
+        workshop:
+          label: "Workshop"
+          description: "Hands-on learning session"
+        study_group:
+          label: "Study Group"
+          description: "Collaborative learning"
+        discussion:
+          label: "Discussion"
+          description: "Topic-based conversation"
+    skills:
+      title: "Skills & Topics"
+      description: "Select the technologies and topics that will be covered."
+      selected_skills: "Selected Skills:"
+    details:
+      title: "Session Details"
+      difficulty:
+        label: "Difficulty Level"
+        placeholder: "Select difficulty"
+        options:
+          beginner: "Beginner"
+          intermediate: "Intermediate"
+          advanced: "Advanced"
+      max_participants:
+        label: "Max Participants"
+        placeholder: "Select max participants"
+        options:
+          5: "5 participants"
+          10: "10 participants"
+          15: "15 participants"
+          20: "20 participants"
+          unlimited: "Unlimited"
+      date: "Date"
+      time: "Time"
+      duration:
+        label: "Duration"
+        placeholder: "Select duration"
+        placeholder_disabled: "Select session type first"
+        recommendation: "Recommended durations for %{type}"
+    privacy:
+      title: "Privacy & Settings"
+      is_public: "Make session public"
+      allow_recording: "Allow session recording"
+      requires_approval: "Require approval to join"
+    validation:
+      title_required: "Session title is required."
+      title_min_length: "Title must be at least 3 characters long."
+      description_required: "Description is required."
+      description_min_length: "Description must be at least 10 characters long."
+      session_type_required: "Please select a session type."
+      interests_required: "Please select at least one skill or topic."
+    toasts:
+      create_success_title: "Session Created!"
+      create_success_description: "Your new session has been published successfully."
+      create_error_title: "Error Creating Session"
+      create_error_description: "There was a problem. Please review the form and try again."
+  session_page:
+    loading: "Loading session..."
+    header:
+      participants: "Participants:"
+      action_buttons:
+        edit: "Edit Session"
+        is_participant: "You are a participant"
+        request_join: "Request to Join"
+    chat:
+      title: "Session Chat"
+      placeholder: "Write your message..."
+    sidebar:
+      tabs:
+        details: "Details"
+        ai_suggest: "AI Suggest"
+        notepad: "Notepad"
+        whiteboard: "Whiteboard"
+      details_tab:
+        description_title: "Session Description"
+        schedule_title: "Schedule"
+        no_date: "Date not defined"
+        no_time: "Time not defined"
+      ai_tab:
+        title: "AI Recommendations"
+        subtitle: "Perfect matches for your session"
+        refresh_button: "Refresh"
+        compatibility: "Compatibility"
+        invite_button: "Invite to Session"
+        matching_info_title: "AI Matching"
+        matching_info_description: "Recommendations based on session topic, required skills, user ratings, and availability."
+      notepad_tab:
+        title: "Collaborative Notes"
+        edit_button: "Edit"
+        preview_button: "Preview"
+        placeholder: "Start taking collaborative notes here using Markdown..."
+      whiteboard_tab:
+        title: "Digital Whiteboard"
+        description: "Collaborative whiteboard for sketching ideas and diagrams."
+        launch_button: "Launch Whiteboard"
+    toasts:
+      join_request_success_title: "Request Sent!"
+      join_request_success_description: "The session creator has been notified of your request."
+      join_request_error_title: "Error Sending Request"
+      join_request_error_description: "There was a problem sending your request. Please try again."
+
+  browse_page:
+    header:
+      title: "Browse & Discover"
+      subtitle: "Find learning partners and expand your network."
+    filters:
+      search_placeholder: "Search users by name..."
+      role_title: "Role"
+      roles:
+        all: "All"
+        student: "Student"
+        teacher: "Teacher"
+      interests_title: "Interests"
+      clear_button: "Clear Filters"
+    results:
+      users_found:
+        one: "1 user found"
+        other: "%{count} users found"
+      no_users_found: "No users found matching your criteria."
+      top_interests: "Top Interests:"
+
+  discover_sessions_page:
+    header:
+      title: "Discover Sessions"
+      subtitle: "Join learning sessions and collaborate with others."
+      create_button: "Create Session"
+    filters:
+      search_placeholder: "Search sessions, skills, or instructors..."
+      sort_by:
+        label: "Sort by"
+        date: "Date"
+        popularity: "Popularity"
+        rating: "Rating"
+      filters_button: "Filters"
+      advanced_filters_title: "Advanced Filters"
+      session_type_label: "Session Type"
+      all_types: "All Types"
+      difficulty_label: "Difficulty"
+      all_levels: "All Levels"
+      skills_label: "Skills"
+      clear_button: "Clear Filters"
+    featured:
+      title: "Featured Sessions"
+      badge: "Featured"
+    results:
+      title: "All Sessions"
+      sessions_found:
+        one: "1 session found"
+        other: "%{count} sessions found"
+      no_sessions_found: "No sessions found matching your criteria."
+      join_button: "Join Session"
+      view_button: "View Details"
+      skills_more: "+%{count} more"
