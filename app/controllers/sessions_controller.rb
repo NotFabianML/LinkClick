@@ -1,13 +1,23 @@
 class SessionsController < ApplicationController
   before_action :authenticate_user!
 
-  before_action :set_session, only: %i[ show ]
+  # before_action :set_session, only: %i[ show join notepad ]
+
+  # now we use load_and_authorize_resource from cancancan
+  load_and_authorize_resource
 
   def index
-    @sessions = Session.where(status: Session::STATUS[:published]).where.not(creator: current_user)
-
     respond_to do |format|
+      format.html do
+        @react_props = {
+          i18n: t("discover_sessions_page"),
+          available_skills: Interest.all.select(:id, :name).as_json
+        }
+      end
+
       format.json do
+        @sessions = Session.where(status: Session::STATUS[:published]).where.not(creator: current_user).includes(:creator, :event, :participants)
+
         render json: @sessions.map { |session|
           {
             id: session.id,
@@ -16,14 +26,16 @@ class SessionsController < ApplicationController
             host: "#{session.creator.first_name} #{session.creator.last_name}",
             host_avatar: "https://api.dicebear.com/8.x/bottts-neutral/svg?seed=#{session.creator.email}",
             host_initials: "#{session.creator.first_name&.first}#{session.creator.last_name&.first}",
-            date: session.event&.start_time&.strftime("%Y-%m-%d") || "N/A",
-            time: session.event&.start_time&.strftime("%I:%M %p") || "N/A",
-            duration: "2 hours", # Placeholder
+            host_rating: 4.8, # Placeholder
+            date: session.start_date&.strftime("%Y-%m-%d") || "N/A",
+            time: session.start_time&.strftime("%I:%M %p") || "N/A",
+            duration: "#{session.duration || 2} hours", # Placeholder
             type: session.session_type,
-            difficulty: "Intermediate", # Placeholder
+            difficulty: session.difficulty,
+            max_participants: session.max_participants,
             current_participants: session.participants.count,
-            max_participants: 10, # Placeholder
-            skills: [] # Placeholder, lo llenaremos cuando asociemos intereses a sesiones
+            skills: [], # Placeholder
+            featured: [ true, false ].sample # Placeholder
           }
         }
       end
@@ -32,7 +44,8 @@ class SessionsController < ApplicationController
 
   def new
     @react_props = {
-      available_interests: Interest.all.select(:id, :name).as_json
+    i18n: t("create_session_page"),
+    available_interests: Interest.all.select(:id, :name).as_json
     }
   end
 
@@ -58,28 +71,23 @@ class SessionsController < ApplicationController
     @react_props = {
       i18n: t("session_page"),
 
-      # Pasamos un objeto `session` con todos sus datos anidados
       session_data: {
         id: @session.id,
         title: @session.title,
         description: @session.description,
         status: @session.status,
 
-        # Añadimos el contenido del bloc de notas
-        notepad_content: notepad_resource&.content || "", # Enviamos el contenido o un string vacío
+        notepad_content: notepad_resource&.content || "",
 
-        # Cargamos los participantes y sus datos básicos
         participants: @session.participants.map do |p|
           {
             id: p.id,
             full_name: "#{p.first_name} #{p.last_name}",
             initials: "#{p.first_name&.first}#{p.last_name&.first}",
-            # En un futuro, podrías tener un campo `is_online` en tu modelo User
             is_online: [ true, false ].sample # Placeholder por ahora
           }
         end,
 
-        # Cargamos los mensajes, incluyendo quién los envió
         messages: @session.messages.includes(:sender).order(created_at: :asc).map do |m|
           {
             id: m.id,
@@ -91,20 +99,44 @@ class SessionsController < ApplicationController
           }
         end,
 
-        # En el futuro, aquí cargarías los datos del evento, recursos, etc.
         event_data: {
           scheduled_date: @session.event&.start_time&.strftime("%B %d, %Y"),
           scheduled_time: "#{@session.event&.start_time&.strftime('%I:%M %p')} - #{@session.event&.end_time&.strftime('%I:%M %p')}"
         }
       },
-      # --- ESTA ES LA SECCIÓN QUE FALTABA O ERA INCORRECTA ---
-      # Aquí calculamos y pasamos el rol del usuario actual en esta sesión.
       current_user_role: {
         is_creator: current_user == @session.creator,
         is_participant: @session.participants.include?(current_user)
       }
     }
   end
+
+  def join
+    if @session.creator == current_user || @session.participants.include?(current_user)
+      return render json: { message: "You are already part of this session." }, status: :ok
+    end
+
+    if @session.requires_approval?
+      join_request = JoinRequest.find_or_create_by(user: current_user, session: @session)
+      render json: { message: "Your request to join has been sent." }, status: :ok
+    else
+      @session.participants << current_user
+      render json: { message: "Successfully joined the session." }, status: :ok
+    end
+  rescue ActiveRecord::RecordNotFound
+    render json: { error: "Session not found." }, status: :not_found
+  end
+
+  def notepad
+    notepad_resource = @session.resources.find_or_create_by(resource_type: Resource::RESOURCE_TYPES[:notepad])
+
+    if notepad_resource.update(content: params[:content])
+      render json: { message: "Notepad saved successfully." }, status: :ok
+    else
+      render json: { errors: notepad_resource.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
 
   private
 
@@ -117,7 +149,16 @@ class SessionsController < ApplicationController
       :title,
       :description,
       :session_type,
-      :status
+      :status,
+      :difficulty,
+      :max_participants,
+      :start_date,
+      :start_time,
+      :duration,
+      :is_public,
+      :allow_recording,
+      :requires_approval,
+      interest_ids: []
     )
   end
 end
