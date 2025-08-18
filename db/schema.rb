@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_15_180502) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_17_222202) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -60,6 +60,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_15_180502) do
     t.bigint "interest_id", null: false
   end
 
+  create_table "join_requests", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "session_id", null: false
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["session_id"], name: "index_join_requests_on_session_id"
+    t.index ["user_id"], name: "index_join_requests_on_user_id"
+  end
+
   create_table "messages", force: :cascade do |t|
     t.bigint "session_id", null: false
     t.bigint "sender_id", null: false
@@ -87,6 +97,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_15_180502) do
     t.bigint "creator_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "difficulty", default: 0
+    t.integer "max_participants", default: 10
+    t.date "start_date"
+    t.time "start_time"
+    t.float "duration"
+    t.boolean "is_public", default: true, null: false
+    t.boolean "allow_recording", default: false, null: false
+    t.boolean "requires_approval", default: false, null: false
     t.index ["creator_id"], name: "index_sessions_on_creator_id"
   end
 
@@ -130,6 +148,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_15_180502) do
   add_foreign_key "feedbacks", "sessions"
   add_foreign_key "feedbacks", "users", column: "giver_id"
   add_foreign_key "feedbacks", "users", column: "receiver_id"
+  add_foreign_key "join_requests", "sessions"
+  add_foreign_key "join_requests", "users"
   add_foreign_key "messages", "sessions"
   add_foreign_key "messages", "users", column: "sender_id"
   add_foreign_key "resources", "sessions"
