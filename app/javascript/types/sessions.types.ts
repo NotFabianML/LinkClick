@@ -1,3 +1,5 @@
+import { z } from 'zod';
+
 export interface Session {
   id: number;
   title: string;
@@ -5,11 +7,6 @@ export interface Session {
   session_type: string;
   status: string;
 }
-
-export interface CreateSessionPageProps {
-  available_interests: { id: number; name: string; }[];
-}
-
 export interface Participant {
   id: number;
   full_name: string;
@@ -25,6 +22,105 @@ export interface Message {
   timestamp: string;
   is_current_user: boolean;
 }
+
+export interface CreateSessionPageProps {
+  available_interests: { id: number; name: string; }[];
+}
+
+// --- Esquema de Validación con Zod ---
+// Definimos el esquema aquí para poder reutilizarlo y mantener los tipos consistentes.
+export const createSessionSchema = z.object({
+  title: z.string().min(1, { message: 'validation.title_required' }).min(3, { message: 'validation.title_min_length' }),
+  description: z.string().min(1, { message: 'validation.description_required' }).min(10, { message: 'validation.description_min_length' }),
+  session_type: z.string().min(1, { message: 'validation.session_type_required' }),
+  interest_ids: z.array(z.number()).min(1, { message: 'validation.interests_required' }),
+  is_public: z.boolean(),
+  allow_recording: z.boolean(),
+  requires_approval: z.boolean(),
+  difficulty: z.string().min(1, { message: 'validation.difficulty_required' }),
+  max_participants: z.string().min(1, { message: 'validation.max_participants_required' }),
+  date: z.string().min(1, { message: 'validation.date_required' }),
+  time: z.string().min(1, { message: 'validation.time_required' }),
+  duration: z.string().min(1, { message: 'validation.duration_required' }),
+});
+
+// Derivamos el tipo de TypeScript directamente del esquema de Zod
+export type CreateSessionFormData = z.infer<typeof createSessionSchema>;
+
+
+// --- Tipos para las Traducciones (i18n) ---
+export interface CreateSessionI18n {
+  header: {
+    title: string;
+    subtitle: string;
+    back_button: string;
+  };
+  form: {
+    error_summary: string;
+    submit_button: string;
+    submitting_button: string;
+  };
+  basic_info: {
+    title: string;
+    session_title: {
+      label: string;
+      placeholder: string;
+    };
+    description: {
+      label: string;
+      placeholder: string;
+    };
+  };
+  session_type: {
+    title: string;
+    description: string;
+    types: {
+      [key: string]: { label: string; description: string; };
+    };
+  };
+  skills: {
+    title: string;
+    description: string;
+    selected_skills: string;
+  };
+  details: {
+    title: string;
+    difficulty: {
+      label: string;
+      placeholder: string;
+      options: { [key: string]: string; };
+    };
+    max_participants: {
+      label: string;
+      placeholder: string;
+      options: { [key: string]: string; };
+    };
+    date: string;
+    time: string;
+    duration: {
+      label: string;
+      placeholder: string;
+      placeholder_disabled: string;
+      recommendation: string;
+    };
+  };
+  privacy: {
+    title: string;
+    is_public: string;
+    allow_recording: string;
+    requires_approval: string;
+  };
+  validation: {
+    [key: string]: string;
+  };
+  toasts: {
+    create_success_title: string;
+    create_success_description: string;
+    create_error_title: string;
+    create_error_description: string;
+  };
+}
+
 
 export interface EventData {
   scheduled_date: string;
@@ -43,16 +139,6 @@ export interface SessionData {
   notepad_content: string;
 }
 
-// Props que la página recibe del controlador
-export interface SessionPageProps {
-  i18n: any; 
-  session_data: SessionData;
-  current_user_role: {
-    is_creator: boolean;
-    is_participant: boolean;
-  };
-}
-
 export interface SessionCardData {
   id: number;
   title: string;
@@ -68,4 +154,70 @@ export interface SessionCardData {
   current_participants: number;
   max_participants: number;
   skills: string[];
+}
+
+export interface SessionPageI18n {
+  loading: string;
+  header: {
+    participants: string;
+    action_buttons: {
+      edit: string;
+      is_participant: string;
+      request_join: string;
+    };
+  };
+  chat: {
+    title: string;
+    placeholder: string;
+  };
+  sidebar: {
+    tabs: {
+      details: string;
+      ai_suggest: string;
+      notepad: string;
+      whiteboard: string;
+    };
+    details_tab: {
+      description_title: string;
+      schedule_title: string;
+      no_date: string;
+      no_time: string;
+    };
+    ai_tab: {
+      title: string;
+      subtitle: string;
+      refresh_button: string;
+      compatibility: string;
+      invite_button: string;
+      matching_info_title: string;
+      matching_info_description: string;
+    };
+    notepad_tab: {
+      title: string;
+      edit_button: string;
+      preview_button: string;
+      placeholder: string;
+    };
+    whiteboard_tab: {
+      title: string;
+      description: string;
+      launch_button: string;
+    };
+  };
+  toasts: {
+    join_request_success_title: string;
+    join_request_success_description: string;
+    join_request_error_title: string;
+    join_request_error_description: string;
+  };
+}
+
+
+export interface SessionPageProps {
+  i18n: SessionPageI18n; 
+  session_data: SessionData;
+  current_user_role: {
+    is_creator: boolean;
+    is_participant: boolean;
+  };
 }
