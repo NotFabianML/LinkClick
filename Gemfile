@@ -71,5 +71,7 @@ gem "shakapacker", "= 8.3"
 gem "react_on_rails", "= 14.0.4"
 # Internationalization support for Rails applications
 gem "rails-i18n"
-
+# turbo-rails for enhanced navigation and interactivity
 gem "turbo-rails", "~> 2.0"
+# cancancan for authorization
+gem "cancancan"
