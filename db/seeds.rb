@@ -44,7 +44,7 @@ ActiveRecord::Base.transaction do
     email: 'admin@linkclick.com',
     password: 'password',
     password_confirmation: 'password',
-    role: 'admin',
+    role: User::ROLES[:admin],
     bio: 'Administrador de la plataforma LinkClick.'
   )
 
@@ -55,7 +55,7 @@ ActiveRecord::Base.transaction do
     email: 'ana.rojas@teacher.com',
     password: 'password',
     password_confirmation: 'password',
-    role: 'teacher',
+    role: User::ROLES[:teacher],
     bio: 'Ingeniera de software con 10 años de experiencia en desarrollo backend con Ruby on Rails y arquitecturas de microservicios.',
     university: 'Tecnológico de Costa Rica',
     country: 'Costa Rica'
@@ -68,7 +68,7 @@ ActiveRecord::Base.transaction do
     email: 'carlos.mora@teacher.com',
     password: 'password',
     password_confirmation: 'password',
-    role: 'teacher',
+    role: User::ROLES[:teacher],
     bio: 'Desarrollador Frontend especializado en React y TypeScript. Apasionado por crear interfaces de usuario accesibles y de alto rendimiento.',
     university: 'Universidad de Costa Rica',
     country: 'Costa Rica'
@@ -83,7 +83,7 @@ ActiveRecord::Base.transaction do
     email: 'sofia.fernandez@student.com',
     password: 'password',
     password_confirmation: 'password',
-    role: 'student',
+    role: User::ROLES[:student],
     bio: 'Estudiante de ingeniería de software buscando colaborar en proyectos de React.',
     university: 'Universidad Cenfotec',
     country: 'Costa Rica'
@@ -104,7 +104,7 @@ ActiveRecord::Base.transaction do
     email: 'mateo.vargas@student.com',
     password: 'password',
     password_confirmation: 'password',
-    role: 'student',
+    role: User::ROLES[:student],
     bio: 'Interesado en Python y Machine Learning. Busco tutorías para reforzar mis conocimientos.',
     university: 'Tecnológico de Costa Rica',
     country: 'Costa Rica'
@@ -125,7 +125,7 @@ ActiveRecord::Base.transaction do
     email: 'lucia.jimenez@student.com',
     password: 'password',
     password_confirmation: 'password',
-    role: 'student',
+    role: User::ROLES[:student],
     bio: 'Aprendiendo a desplegar aplicaciones con Docker y Rails.',
     university: 'Universidad de Costa Rica',
     country: 'Costa Rica'
