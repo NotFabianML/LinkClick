@@ -16,12 +16,18 @@ class Session < ApplicationRecord
   def completed?; self.status == STATUS[:completed]; end
   def cancelled?; self.status == STATUS[:cancelled]; end
 
+  DIFFICULTY = { beginner: 0, intermediate: 1, advanced: 2 }.freeze
+  def beginner?; self.difficulty == DIFFICULTY[:beginner]; end
+  def intermediate?; self.difficulty == DIFFICULTY[:intermediate]; end
+  def advanced?; self.difficulty == DIFFICULTY[:advanced]; end
+
   # --- ASOCIACIONES ---
 
   has_one :event, dependent: :destroy
   has_many :messages, dependent: :destroy
   has_many :resources, dependent: :destroy
   has_many :feedbacks, dependent: :destroy
-
   has_and_belongs_to_many :participants, class_name: "User", join_table: "sessions_users"
+
+  has_many :join_requests, dependent: :destroy
 end
