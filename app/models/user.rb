@@ -16,9 +16,13 @@ class User < ApplicationRecord
   # --- ASOCIACIONES ---
   has_many :created_sessions, class_name: "Session", foreign_key: "creator_id", dependent: :destroy
   has_and_belongs_to_many :participated_sessions, class_name: "Session", join_table: "sessions_users"
-  has_and_belongs_to_many :interests, join_table: "interests_users"
-  has_and_belongs_to_many :badges, join_table: "badges_users"
+
   has_many :messages, foreign_key: "sender_id", dependent: :destroy
   has_many :given_feedbacks, class_name: "Feedback", foreign_key: "giver_id", dependent: :destroy
   has_many :received_feedbacks, class_name: "Feedback", foreign_key: "receiver_id", dependent: :destroy
+
+  has_and_belongs_to_many :interests, join_table: "interests_users"
+  has_and_belongs_to_many :badges, join_table: "badges_users"
+
+  has_many :join_requests, dependent: :destroy
 end
