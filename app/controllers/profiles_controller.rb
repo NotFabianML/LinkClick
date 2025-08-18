@@ -18,14 +18,14 @@ class ProfilesController < ApplicationController
       i18n: t("my_profile_page"),
 
       user_data: {
-        # --- Datos Básicos ---
+        # --- Basic data ---
         email: @user.email,
         first_name: @user.first_name,
         last_name: @user.last_name,
         role: User::ROLES.key(@user.role).to_s.titleize,
         bio: @user.bio,
 
-        # --- Campos del Perfil ---
+        # --- Profile Fields ---
         phone: @user.phone,
         country: @user.country,
         website: @user.website,
@@ -33,11 +33,11 @@ class ProfilesController < ApplicationController
         linkedin_url: @user.linkedin_url,
         github_url: @user.github_url,
 
-        # --- Asociaciones ---
+        # --- Associations ---
         interests: @user.interests.map { |i| { id: i.id, name: i.name } },
         badges: @user.badges.map { |b| { id: b.id, name: b.name, description: b.description } },
 
-        # --- Configuraciones ---
+        # --- Settings ---
         settings: {
           email_notifications: @user.email_notifications,
           session_reminders: @user.session_reminders,
@@ -45,7 +45,7 @@ class ProfilesController < ApplicationController
           marketing_emails: @user.marketing_emails
         },
 
-        # --- Configuraciones de Privacidad ---
+        # --- Privacy Settings ---
         privacy: {
           profile_visibility: User::PROFILE_VISIBILITY.key(@user.profile_visibility).to_s,
           show_email: @user.show_email,
@@ -54,7 +54,7 @@ class ProfilesController < ApplicationController
           allow_messages: @user.allow_messages
         },
 
-        # --- Datos Calculados (Estadísticas) ---
+        # --- Calculated Data (Statistics) ---
         stats: {
           sessions_joined: @user.participated_sessions.count,
           sessions_created: @user.created_sessions.count,
@@ -64,7 +64,6 @@ class ProfilesController < ApplicationController
           connections: 0
         },
 
-        # --- Datos Derivados (Actividad Reciente) ---
         recent_activity: recent_activities
       }
     }
@@ -87,6 +86,17 @@ class ProfilesController < ApplicationController
       render json: { message: "Profile updated successfully!" }, status: :ok
     else
       render json: { errors: current_user.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    user_to_delete = current_user
+    sign_out(user_to_delete)
+
+    if user_to_delete.destroy
+      render json: { message: "Account deleted successfully." }, status: :ok
+    else
+      render json: { errors: [ "Could not delete account." ] }, status: :unprocessable_entity
     end
   end
 

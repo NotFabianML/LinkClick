@@ -3,11 +3,24 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @users = User.where.not(id: current_user.id)
+    @users = User.where.not(role: User::ROLES[:admin]).where.not(id: current_user.id).includes(:interests)
 
     respond_to do |format|
       format.json do
-        render json: @users.map { |user| { id: user.id, first_name: user.first_name, last_name: user.last_name, role: user.role } }
+        render json: @users.map { |user|
+          {
+            id: user.id,
+            first_name: user.first_name,
+            last_name: user.last_name,
+            email: user.email,
+            role: User::ROLES.key(user.role),
+            # Placeholder para datos que aún no tienes en el modelo
+            rating: 4.8,
+            sessions: user.participated_sessions.count,
+            # Incluimos los intereses para el filtrado
+            topInterests: user.interests.limit(3).pluck(:name)
+          }
+        }
       end
     end
   end
@@ -24,7 +37,7 @@ class UsersController < ApplicationController
         first_name: @user.first_name,
         last_name: @user.last_name,
         email: @user.email,
-        role: @user.role,
+        role: User::ROLES.key(@user.role).to_s.titleize,
         bio: @user.bio,
         linkedin_url: @user.linkedin_url,
         github_url: @user.github_url,
