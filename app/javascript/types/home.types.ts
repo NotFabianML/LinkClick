@@ -1,20 +1,65 @@
-// Tipos específicos para la página de inicio
+interface Stat {
+  users: string;
+  sessions: string;
+  rate: string;
+}
 
-export interface Tech {
+interface FeatureCard {
   title: string;
   description: string;
 }
 
-export interface HomepageI18n {
+interface HowItWorksStep {
   title: string;
-  subtitle: string;
-  posts_button: string;
-  source_button: string;
-  tech: {
-    rails: Tech;
-    react: Tech;
-    shakapacker: Tech;
-    shadcn: Tech;
-    axios: Tech;
+  description: string;
+}
+
+interface TestimonialCard {
+  quote: string;
+  name: string;
+  role: string;
+}
+
+interface CtaFeatures {
+  feature1: string;
+  feature2: string;
+  feature3: string;
+}
+
+export interface HomePageI18n {
+  hero: {
+    badge: string;
+    title_line1: string;
+    title_line2: string;
+    subtitle: string;
+    cta_button1: string;
+    cta_button2: string;
+    stats: Stat;
   };
+  features: {
+    title: string;
+    subtitle: string;
+    cards: { [key: string]: FeatureCard };
+  };
+  how_it_works: {
+    title: string;
+    subtitle: string;
+    steps: { [key: string]: HowItWorksStep };
+  };
+  testimonials: {
+    title: string;
+    subtitle: string;
+    cards: { [key: string]: TestimonialCard };
+  };
+  cta: {
+    title: string;
+    subtitle: string;
+    cta_button1: string;
+    cta_button2: string;
+    features: CtaFeatures;
+  };
+}
+
+export interface HomePageProps {
+  i18n: HomePageI18n;
 }
