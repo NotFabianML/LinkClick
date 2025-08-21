@@ -9,29 +9,79 @@ es:
     leaderboard_link: Clasificación
     profile_link: Mi Perfil
     sessions_link: Sesiones
+  
   homepage:
-    title: Bienvenido al Template
-    subtitle: >-
-      Una aplicación moderna construida con lo mejor de dos mundos. Este
-      proyecto integra Rails, React, y shadcn/ui a través de Shakapacker.
-    posts_button: Ver los Posts
-    source_button: Código Fuente
-    tech:
-      rails:
-        title: Ruby on Rails 8
-        description: El backend robusto y elegante que potencia la aplicación.
-      react:
-        title: React 19
-        description: Para construir interfaces de usuario interactivas y dinámicas.
-      shakapacker:
-        title: Shakapacker
-        description: El puente moderno entre Rails y Webpack para la gestión de assets.
-      shadcn:
-        title: shadcn/ui + Tailwind
-        description: Componentes hermosos y un framework CSS para un diseño impecable.
-      axios:
-        title: Axios
-        description: Una biblioteca para hacer solicitudes HTTP desde el navegador.
+    hero:
+      badge: "Conectando Mentes Tech Mundialmente"
+      title_line1: "Aprende. Conecta."
+      title_line2: "Colabora."
+      subtitle: "Únete a LinkClick, la plataforma líder donde estudiantes y educadores de tecnología se unen para compartir conocimiento, crear conexiones y acelerar el aprendizaje a través de experiencias colaborativas."
+      cta_button1: "Inicia Tu Viaje"
+      cta_button2: "Explora la Comunidad"
+      stats:
+        users: "Usuarios Activos"
+        sessions: "Sesiones de Estudio"
+        rate: "Tasa de Éxito"
+    features:
+      title: "¿Por qué elegir LinkClick?"
+      subtitle: "Descubre las características que hacen que el aprendizaje y la colaboración sean fluidos"
+      cards:
+        matching:
+          title: "Matching Inteligente"
+          description: "Conecta con compañeros y mentores basados en tus intereses, habilidades y metas de aprendizaje usando nuestro sistema de matching inteligente."
+        interactive:
+          title: "Aprendizaje Interactivo"
+          description: "Participa en sesiones de estudio colaborativas con pizarras en tiempo real, notas compartidas y herramientas interactivas."
+        chat:
+          title: "Chat en Tiempo Real"
+          description: "Comunícate sin problemas con chat integrado, intercambio de archivos y videollamadas para una colaboración efectiva."
+        achievements:
+          title: "Sistema de Logros"
+          description: "Gana insignias y reconocimiento por tus contribuciones, ayudando a otros y alcanzando hitos de aprendizaje."
+        safety:
+          title: "Entorno Seguro"
+          description: "Aprende en un entorno seguro y moderado con usuarios verificados y controles de privacidad exhaustivos."
+        community:
+          title: "Comunidad Global"
+          description: "Únete a una red mundial de entusiastas de la tecnología, desde principiantes hasta expertos, todos apasionados por aprender."
+    how_it_works:
+      title: "Cómo Funciona"
+      subtitle: "Comienza en tres simples pasos"
+      steps:
+        step1:
+          title: "Crea Tu Perfil"
+          description: "Regístrate y cuéntanos sobre tus intereses, habilidades y metas de aprendizaje para obtener recomendaciones personalizadas."
+        step2:
+          title: "Encuentra Tu Conexión"
+          description: "Explora nuestra comunidad o deja que nuestro algoritmo inteligente te conecte con los compañeros de estudio y mentores perfectos."
+        step3:
+          title: "Empieza a Aprender"
+          description: "Únete a sesiones de estudio, colabora en proyectos y acelera tu viaje de aprendizaje con compañeros y expertos."
+    testimonials:
+      title: "Lo que Dicen Nuestros Usuarios"
+      subtitle: "Únete a miles de estudiantes y educadores satisfechos"
+      cards:
+        card1:
+          quote: "\"LinkClick transformó mi experiencia de aprendizaje. ¡Encontré compañeros de estudio y mentores increíbles que me ayudaron a conseguir el trabajo de mis sueños!\""
+          name: "Sarah Martinez"
+          role: "Estudiante de Ciencias de la Computación"
+        card2:
+          quote: "\"Como educador, LinkClick me ayuda a conectar con estudiantes apasionados de todo el mundo. ¡Las herramientas colaborativas son increíbles!\""
+          name: "Dr. James Wilson"
+          role: "Profesor de Ingeniería de Software"
+        card3:
+          quote: "\"Las funciones de colaboración en tiempo real cambian las reglas del juego. He aprendido más en 3 meses que en un año estudiando solo.\""
+          name: "Alex Liu"
+          role: "Desarrollador Full-Stack"
+    cta:
+      title: "¿Listo para Transformar Tu Aprendizaje?"
+      subtitle: "Únete a LinkClick hoy y sé parte de una próspera comunidad de entusiastas de la tecnología, aprendices y educadores de todo el mundo."
+      cta_button1: "Únete a LinkClick Gratis"
+      cta_button2: "Explora la Comunidad"
+      features:
+        feature1: "Unirse es gratis"
+        feature2: "No se requiere tarjeta de crédito"
+        feature3: "Empieza a aprender inmediatamente"
   
   devise:
     sessions:
@@ -410,3 +460,52 @@ es:
       join_button: "Unirse a la Sesión"
       view_button: "Ver Detalles"
       skills_more: "+%{count} más"
+
+  leaderboard_page:
+    header:
+      breadcrumb: "Clasificación"
+      title: "Clasificación"
+      subtitle: "Celebra los logros y sigue tu progreso."
+      time_periods:
+        weekly: "Esta Semana"
+        monthly: "Este Mes"
+        all_time: "Todo el Tiempo"
+    tabs:
+      learners: "Mejores Estudiantes"
+      teachers: "Mejores Profesores"
+      active: "Más Activos"
+    learners_table:
+      title: "Mejores Estudiantes"
+      subtitle: "Estudiantes que están sobresaliendo en su viaje de aprendizaje."
+      you_badge: "Tú"
+      stats: "%{sessions} sesiones • %{hours}h aprendidas"
+      points: "puntos"
+    teachers_table:
+      title: "Mejores Profesores"
+      subtitle: "Educadores que tienen el mayor impacto en nuestra comunidad."
+      stats: "%{sessions} sesiones • %{students} estudiantes ayudados"
+      points: "puntos"
+    active_table:
+      title: "Más Activos"
+      subtitle: "Usuarios con la mayor participación y consistencia."
+      stats: "racha de %{streak} días • %{hours}h esta semana"
+      points: "puntos de actividad"
+    sidebar:
+      your_stats:
+        title: "Tus Estadísticas"
+        total_points: "Puntos Totales"
+        rank: "Rango"
+        sessions: "Sesiones"
+        next_milestone: "Próximo hito"
+      achievements:
+        title: "Logros"
+        subtitle: "Desbloquea insignias alcanzando hitos."
+        view_all_button: "Ver Todos los Logros"
+        rarities:
+          common: "Común"
+          uncommon: "Poco Común"
+          rare: "Raro"
+          epic: "Épico"
+          legendary: "Legendario"
+      quick_stats:
+        growth: "Crecimiento este mes"

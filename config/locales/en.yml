@@ -8,29 +8,79 @@ en:
     log_out: Log out
     log_in: Log in
     sign_up: Sign up
+    
   homepage:
-    title: Welcome to the Template
-    subtitle: >-
-      A modern application built with the best of both worlds. This project
-      integrates Rails, React, and shadcn/ui through Shakapacker.
-    posts_button: View Posts
-    source_button: Source Code
-    tech:
-      rails:
-        title: Ruby on Rails 8
-        description: The robust and elegant backend that powers the application.
-      react:
-        title: React 19
-        description: To build interactive and dynamic user interfaces.
-      shakapacker:
-        title: Shakapacker
-        description: The modern bridge between Rails and Webpack for asset management.
-      shadcn:
-        title: shadcn/ui + Tailwind
-        description: Beautiful components and a CSS framework for a flawless design.
-      axios:
-        title: Axios
-        description: A library for making HTTP requests from the browser.
+    hero:
+      badge: "Connecting Tech Minds Worldwide"
+      title_line1: "Learn. Connect."
+      title_line2: "Collaborate."
+      subtitle: "Join LinkClick, the premier platform where tech students and educators come together to share knowledge, build connections, and accelerate learning through collaborative experiences."
+      cta_button1: "Start Your Journey"
+      cta_button2: "Explore Community"
+      stats:
+        users: "Active Users"
+        sessions: "Study Sessions"
+        rate: "Success Rate"
+    features:
+      title: "Why Choose LinkClick?"
+      subtitle: "Discover the features that make learning and collaboration seamless"
+      cards:
+        matching:
+          title: "Smart Matching"
+          description: "Connect with peers and mentors based on your interests, skills, and learning goals using our intelligent matching system."
+        interactive:
+          title: "Interactive Learning"
+          description: "Engage in collaborative study sessions with real-time whiteboards, shared notes, and interactive tools."
+        chat:
+          title: "Real-time Chat"
+          description: "Communicate seamlessly with integrated chat, file sharing, and video calls for effective collaboration."
+        achievements:
+          title: "Achievement System"
+          description: "Earn badges and recognition for your contributions, helping others, and achieving learning milestones."
+        safety:
+          title: "Safe Environment"
+          description: "Learn in a secure, moderated environment with verified users and comprehensive privacy controls."
+        community:
+          title: "Global Community"
+          description: "Join a worldwide network of tech enthusiasts, from beginners to experts, all passionate about learning."
+    how_it_works:
+      title: "How It Works"
+      subtitle: "Get started in three simple steps"
+      steps:
+        step1:
+          title: "Create Your Profile"
+          description: "Sign up and tell us about your interests, skills, and learning goals to get personalized recommendations."
+        step2:
+          title: "Find Your Match"
+          description: "Browse our community or let our smart algorithm connect you with the perfect study partners and mentors."
+        step3:
+          title: "Start Learning"
+          description: "Join study sessions, collaborate on projects, and accelerate your learning journey with peers and experts."
+    testimonials:
+      title: "What Our Users Say"
+      subtitle: "Join thousands of satisfied learners and educators"
+      cards:
+        card1:
+          quote: "\"LinkClick transformed my learning experience. I found amazing study partners and mentors who helped me land my dream job!\""
+          name: "Sarah Martinez"
+          role: "Computer Science Student"
+        card2:
+          quote: "\"As an educator, LinkClick helps me connect with passionate students worldwide. The collaborative tools are incredible!\""
+          name: "Dr. James Wilson"
+          role: "Software Engineering Professor"
+        card3:
+          quote: "\"The real-time collaboration features are game-changing. I've learned more in 3 months than I did in a year studying alone.\""
+          name: "Alex Liu"
+          role: "Full-Stack Developer"
+    cta:
+      title: "Ready to Transform Your Learning?"
+      subtitle: "Join LinkClick today and become part of a thriving community of tech enthusiasts, learners, and educators from around the world."
+      cta_button1: "Join LinkClick Free"
+      cta_button2: "Explore Community"
+      features:
+        feature1: "Free to join"
+        feature2: "No credit card required"
+        feature3: "Start learning immediately"
   
   devise:
     sessions:
@@ -408,3 +458,52 @@ en:
       join_button: "Join Session"
       view_button: "View Details"
       skills_more: "+%{count} more"
+
+  leaderboard_page:
+    header:
+      breadcrumb: "Leaderboard"
+      title: "Leaderboard"
+      subtitle: "Celebrate achievements and track your progress."
+      time_periods:
+        weekly: "This Week"
+        monthly: "This Month"
+        all_time: "All Time"
+    tabs:
+      learners: "Top Learners"
+      teachers: "Top Teachers"
+      active: "Most Active"
+    learners_table:
+      title: "Top Learners"
+      subtitle: "Students who are excelling in their learning journey."
+      you_badge: "You"
+      stats: "%{sessions} sessions • %{hours}h learned"
+      points: "points"
+    teachers_table:
+      title: "Top Teachers"
+      subtitle: "Educators making the biggest impact on our community."
+      stats: "%{sessions} sessions • %{students} students helped"
+      points: "points"
+    active_table:
+      title: "Most Active"
+      subtitle: "Users with the highest engagement and consistency."
+      stats: "%{streak} day streak • %{hours}h this week"
+      points: "activity points"
+    sidebar:
+      your_stats:
+        title: "Your Stats"
+        total_points: "Total Points"
+        rank: "Rank"
+        sessions: "Sessions"
+        next_milestone: "Next milestone"
+      achievements:
+        title: "Achievements"
+        subtitle: "Unlock badges by reaching milestones."
+        view_all_button: "View All Achievements"
+        rarities:
+          common: "Common"
+          uncommon: "Uncommon"
+          rare: "Rare"
+          epic: "Epic"
+          legendary: "Legendary"
+      quick_stats:
+        growth: "Growth this month"
