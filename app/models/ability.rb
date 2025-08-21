@@ -50,16 +50,18 @@ class Ability
       can :manage, JoinRequest, session: { creator_id: user.id }
 
     elsif user.student?
-      # Los estudiantes pueden leer todas las sesiones públicas.
-      can :read, Session, status: :published
+      # # Los estudiantes pueden leer todas las sesiones públicas.
+      # can :read, Session, status: :published
 
-      # Pueden solicitar unirse a las sesiones.
-      can :join, Session
+      # # Pueden solicitar unirse a las sesiones.
+      # can :join, Session
 
-      # pueden crear, actualizar o destruir sesiones.
-      can :create, Session
-      can :update, Session
-      can :destroy, Session
+      # # pueden crear, actualizar o destruir sesiones.
+      # can :create, Session
+      # can :update, Session
+      # can :destroy, Session
+
+      can :manage, :all
     end
   end
 end

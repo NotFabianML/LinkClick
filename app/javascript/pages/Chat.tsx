@@ -179,7 +179,7 @@ export default function ChatPage() {
             Messages
           </h1>
           <p className="text-muted-foreground mt-2">
-            Connect and collaborate with the TicoLink community
+            Connect and collaborate with the LinkClick community
           </p>
         </div>
 

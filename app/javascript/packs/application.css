@@ -147,7 +147,7 @@
   }
 }
 
-/* Added custom utility classes for TicoLink branding */
+/* Added custom utility classes for LinkClick branding */
 @layer utilities {
   .font-heading {
     font-family: var(--font-sora), ui-sans-serif, system-ui, sans-serif;

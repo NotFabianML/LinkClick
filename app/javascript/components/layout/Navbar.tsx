@@ -48,7 +48,7 @@ const Navbar = (props: SharedProps) => {
         {/* Left Side */}
         <div className="flex items-center gap-6">
           <NavLink href={logoHref} className="font-heading font-bold text-xl text-brand hover:text-brand/80 transition-colors">
-            TicoLink
+            LinkClick
           </NavLink>
           {user.logged_in && (
             <>
