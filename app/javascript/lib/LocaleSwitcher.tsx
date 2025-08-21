@@ -18,10 +18,10 @@ export function LocaleSwitcher({ localeData }: { localeData: LocaleData }) {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem asChild disabled={current_locale === 'en'}>
-          <a href={en_url}>English</a>
+          <a href={en_url} data-turbo="false">English</a>
         </DropdownMenuItem>
         <DropdownMenuItem asChild disabled={current_locale === 'es'}>
-          <a href={es_url}>Español</a>
+          <a href={es_url} data-turbo="false">Español</a>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
