@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     root "home#index"
     get "/dashboard", to: "dashboard#index"
     get "/browse", to: "browse#index"
+    get "/leaderboard", to: "leaderboard#index"
 
     resources :users, only: [ :index, :show ]
     resource :profile, only: [ :show, :edit, :update, :destroy ]

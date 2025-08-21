@@ -37,7 +37,7 @@ class UsersController < ApplicationController
         first_name: @user.first_name,
         last_name: @user.last_name,
         email: @user.email,
-        role: User::ROLES.key(@user.role).to_s.titleize,
+        role: User::ROLES.key(@user.role),
         bio: @user.bio,
         linkedin_url: @user.linkedin_url,
         github_url: @user.github_url,

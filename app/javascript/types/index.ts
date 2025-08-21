@@ -8,6 +8,7 @@ export * from './sessions.types';
 export * from './dashboard.types';
 export * from './browse.types';
 export * from './discover_sessions.types';
+export * from './leaderboard.types'
 
 export interface LocaleData {
   en_url: string;
