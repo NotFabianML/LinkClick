@@ -77,3 +77,5 @@ gem "turbo-rails", "~> 2.0"
 gem "cancancan"
 # discard for soft deletion
 gem "discard"
+# serializer for json api
+gem "jsonapi-serializer"
