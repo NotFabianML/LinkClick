@@ -23,6 +23,27 @@ ActiveRecord::Base.transaction do
   Interest.destroy_all
   Badge.destroy_all
 
+  puts "==> Creando Insignias..."
+  achievements = [
+    { name: "First Steps", description: "Complete your first session", icon: "🚀", rarity: :common },
+    { name: "Knowledge Seeker", description: "Join 10 sessions", icon: "📚", rarity: :common },
+    { name: "Rising Star", description: "Earn 1000 points", icon: "⭐", rarity: :uncommon },
+    { name: "Mentor", description: "Help 5 students", icon: "🤝", rarity: :uncommon },
+    { name: "Expert", description: "Create 10 sessions", icon: "👨‍🏫", rarity: :rare },
+    { name: "Perfectionist", description: "Maintain 4.8+ rating", icon: "🎯", rarity: :rare },
+    { name: "Legend", description: "Reach top 3 in leaderboard", icon: "🏆", rarity: :legendary },
+    { name: "Fire Streak", description: "30-day learning streak", icon: "🔥", rarity: :epic },
+    { name: "Lightning Fast", description: "Complete 5 sessions in a day", icon: "⚡", rarity: :epic }
+  ]
+
+  achievements.each do |attrs|
+    Achievement.find_or_create_by!(name: attrs[:name]) do |achievement|
+      achievement.description = attrs[:description]
+      achievement.icon = attrs[:icon]
+      achievement.rarity = attrs[:rarity]
+    end
+  end
+
   puts "==> Creando Intereses y Badges..."
   interests = [
     'Ruby on Rails', 'React', 'TypeScript', 'Node.js', 'Python', 'Docker',

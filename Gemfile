@@ -75,3 +75,5 @@ gem "rails-i18n"
 gem "turbo-rails", "~> 2.0"
 # cancancan for authorization
 gem "cancancan"
+# discard for soft deletion
+gem "discard"
