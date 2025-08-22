@@ -1,31 +1,75 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import axios from 'axios';
-import { SessionPageProps, Message, SessionData } from "../types";
-import { useI18n } from '../contexts/I18nContext';
-import { toast } from 'sonner';
-
+import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
+import { createConsumer } from "@rails/actioncable";
+import { SessionPageProps, Message, SessionData, ChatMessage } from "../types"; // Import ChatMessage
 import SessionHeader from "../components/session/SessionHeader";
 import SessionChat from "../components/session/SessionChat";
 import SessionSidebar from "../components/session/SessionSidebar";
 
+const cable = createConsumer();
+
 const SessionDetailPage = (props: SessionPageProps) => {
   const { session_data, i18n } = props;
-  
+
+  // Map the initial messages from snake_case (Message) to camelCase (ChatMessage).
+  const initialMessages: ChatMessage[] = session_data.messages.map(msg => ({
+    id: msg.id,
+    content: msg.content,
+    timestamp: msg.timestamp,
+    senderId: msg.senderId,
+    senderName: msg.sender_name,
+    senderInitials: msg.sender_initials,
+  }));
+
   const [session, setSession] = useState<SessionData>(session_data);
-  const [currentUserRole, setCurrentUserRole] = useState(props.current_user_role);
+  const [messages, setMessages] = useState<ChatMessage[]>(initialMessages);
+  const [currentUserRole, setCurrentUserRole] = useState(
+    props.current_user_role
+  );
+  const subscriptionRef = useRef<any>(null);
 
   useEffect(() => {
-    setSession(session_data);
-    setCurrentUserRole(props.current_user_role);
-  }, [session_data, props.current_user_role]);
+    if (subscriptionRef.current) {
+      subscriptionRef.current.unsubscribe();
+    }
 
-// TODO: Implement actual logic to send messages
-  const handleSendMessage = async (content: string): Promise<boolean> => {
-    console.log("Chat functionality will be implemented with WebSockets.");
-    toast.info("Coming Soon!", { description: "Real-time chat will be available soon." });
-    return Promise.resolve(false); // Devuelve 'false' para no limpiar el input
+    subscriptionRef.current = cable.subscriptions.create(
+      { channel: "SessionChannel", session_id: session.id },
+      {
+        received(messageData: { data: { attributes: ChatMessage } }) {
+          const newMessage = messageData.data.attributes;
+          setMessages((prevMessages) =>
+            prevMessages.some((msg) => msg.id === newMessage.id)
+              ? prevMessages
+              : [...prevMessages, newMessage]
+          );
+        },
+      }
+    );
+
+    return () => {
+      if (subscriptionRef.current) {
+        subscriptionRef.current.unsubscribe();
+      }
+    };
+  }, [session.id]);
+
+  const handleSendMessage = async (content: string): Promise<void> => {
+    const csrfToken = document.querySelector<HTMLMetaElement>(
+      "meta[name='csrf-token']"
+    )?.content;
+
+    try {
+      await axios.post(
+        `/api/v1/sessions/${session.id}/messages`,
+        { message: { content } },
+        { headers: { "X-CSRF-Token": csrfToken } }
+      );
+    } catch (error) {
+      console.error("Error sending message:", error);
+    }
   };
 
   const handleJoinSuccess = () => {
@@ -33,7 +77,7 @@ const SessionDetailPage = (props: SessionPageProps) => {
 
     const currentUser = (window as any).sharedProps?.user;
     if (currentUser) {
-      setSession(prevSession => ({
+      setSession((prevSession) => ({
         ...prevSession,
         participants: [
           ...prevSession.participants,
@@ -41,9 +85,9 @@ const SessionDetailPage = (props: SessionPageProps) => {
             id: currentUser.id,
             full_name: `${currentUser.first_name} ${currentUser.last_name}`,
             initials: `${currentUser.first_name?.[0]}${currentUser.last_name?.[0]}`,
-            is_online: true
-          }
-        ]
+            is_online: true,
+          },
+        ],
       }));
     }
   };
@@ -55,8 +99,8 @@ const SessionDetailPage = (props: SessionPageProps) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-muted/20">
       <main className="container mx-auto px-4 py-8">
-        <SessionHeader 
-          session={session} 
+        <SessionHeader
+          session={session}
           currentUserRole={currentUserRole}
           onJoinSuccess={handleJoinSuccess}
         />
@@ -64,7 +108,7 @@ const SessionDetailPage = (props: SessionPageProps) => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2">
             <SessionChat
-              messages={session.messages}
+              messages={messages}
               onSendMessage={handleSendMessage}
             />
           </div>

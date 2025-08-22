@@ -41,8 +41,8 @@ const CreateSessionPage = (props: CreateSessionPageProps) => {
       requires_approval: false,
       difficulty: "",
       max_participants: "",
-      date: "",
-      time: "",
+      start_date: "",
+      start_time: "",
       duration: "",
     },
   });

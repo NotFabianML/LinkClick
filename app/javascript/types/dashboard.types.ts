@@ -32,6 +32,7 @@ export interface RecentActivityDashboard {
   type: "session_completed" | "connection_made" | "session_joined";
   title: string;
   time: string;
+  icon: string;
 }
 
 export interface SuggestedConnection {

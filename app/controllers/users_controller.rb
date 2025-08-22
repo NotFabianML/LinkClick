@@ -3,24 +3,36 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @users = User.where.not(role: User::ROLES[:admin]).where.not(id: current_user.id).includes(:interests)
+    # @users = User.where.not(role: User::ROLES[:admin]).where.not(id: current_user.id).includes(:interests)
+
+    @users = User.where.not(role: User::ROLES[:admin])
+                 .where.not(id: current_user.id)
+                 .includes(:interests) # Preload interests to solve the other N+1
+                 .left_joins(:participated_sessions) # Join to count sessions
+                 .group("users.id") # Group by user to count correctly
+                 .select("users.*", "COUNT(sessions_users.session_id) AS sessions_joined_count")
 
     respond_to do |format|
+      # format.json do
+      #   render json: @users.map { |user|
+      #     {
+      #       id: user.id,
+      #       first_name: user.first_name,
+      #       last_name: user.last_name,
+      #       email: user.email,
+      #       role: User::ROLES.key(user.role),
+      #       # Placeholder para datos que aún no tienes en el modelo
+      #       rating: 4.8,
+      #       sessions: user.participated_sessions.count,
+      #       # Incluimos los intereses para el filtrado
+      #       topInterests: user.interests.limit(3).pluck(:name)
+      #     }
+      #   }
+      # end
+
       format.json do
-        render json: @users.map { |user|
-          {
-            id: user.id,
-            first_name: user.first_name,
-            last_name: user.last_name,
-            email: user.email,
-            role: User::ROLES.key(user.role),
-            # Placeholder para datos que aún no tienes en el modelo
-            rating: 4.8,
-            sessions: user.participated_sessions.count,
-            # Incluimos los intereses para el filtrado
-            topInterests: user.interests.limit(3).pluck(:name)
-          }
-        }
+        # The controller is now simple and clean.
+        render json: UserSerializer.new(@users).serializable_hash[:data].map { |item| item[:attributes] }
       end
     end
   end

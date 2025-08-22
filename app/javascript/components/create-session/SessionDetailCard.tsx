@@ -8,6 +8,7 @@ import {
   UseFormWatch,
 } from "react-hook-form";
 import { CreateSessionFormData } from "../../types";
+import { getDurationOptions } from "../../lib/session-types";
 
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Input } from "../ui/input";
@@ -21,55 +22,6 @@ import {
 } from "../ui/select";
 
 import { Clock } from "lucide-react";
-
-const sessionTypes = [
-  {
-    value: "quick-tutoring",
-    label: "Quick Tutoring",
-    suggestedDuration: ["0.5", "1", "1.5"],
-  },
-  {
-    value: "deep-study",
-    label: "Deep Study Session",
-    suggestedDuration: ["2", "3", "4", "6"],
-  },
-  {
-    value: "project-collab",
-    label: "Project Collaboration",
-    suggestedDuration: ["4", "6", "8", "12", "24"],
-  },
-  { value: "workshop", label: "Workshop", suggestedDuration: ["2", "3", "4"] },
-  {
-    value: "study-group",
-    label: "Study Group",
-    suggestedDuration: ["1.5", "2", "3"],
-  },
-  {
-    value: "discussion",
-    label: "Discussion",
-    suggestedDuration: ["1", "1.5", "2"],
-  },
-];
-const getDurationOptions = (sessionType: string) => {
-  const selectedType = sessionTypes.find((type) => type.value === sessionType);
-  if (!selectedType) return [];
-  const durationMap: { [key: string]: string } = {
-    "0.5": "30 minutes",
-    "1": "1 hour",
-    "1.5": "1.5 hours",
-    "2": "2 hours",
-    "3": "3 hours",
-    "4": "4 hours",
-    "6": "6 hours",
-    "8": "8 hours",
-    "12": "12 hours",
-    "24": "1 day",
-  };
-  return selectedType.suggestedDuration.map((duration) => ({
-    value: duration,
-    label: durationMap[duration],
-  }));
-};
 
 interface SessionDetailsCardProps {
   control: Control<CreateSessionFormData>;
@@ -153,13 +105,13 @@ const SessionDetailsCard = ({
         {/* Date */}
         <div>
           <Label>{i18n.details.date}</Label>
-          <Input type="date" {...register("date")} />
+          <Input type="date" {...register("start_date")} />
         </div>
 
         {/* Time */}
         <div>
           <Label>{i18n.details.time}</Label>
-          <Input type="time" {...register("time")} />
+          <Input type="time" {...register("start_time")} />
         </div>
 
         {/* Duration */}
@@ -185,10 +137,10 @@ const SessionDetailsCard = ({
                 </SelectTrigger>
                 <SelectContent>
                   {getDurationOptions(selectedSessionType).map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
-                      {option.label}
-                    </SelectItem>
-                  ))}
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
                 </SelectContent>
               </Select>
             </div>

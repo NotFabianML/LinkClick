@@ -22,7 +22,9 @@
   </head>
 
   <body class="flex flex-col min-h-screen">
-    <%= react_component("Navbar", props: @shared_props) %>
+    <header class="sticky top-0 z-[9999] w-full bg-background/80 backdrop-blur-lg border-b border-border/40">
+      <%= react_component("Navbar", props: @shared_props) %>
+    </header>
     <main class="flex-grow">
       <%= yield %>
     </main>

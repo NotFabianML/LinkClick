@@ -20,7 +20,7 @@ export interface Message {
   sender_initials: string;
   content: string;
   timestamp: string;
-  is_current_user: boolean;
+  senderId: number; 
 }
 
 export interface CreateSessionPageProps {
@@ -28,7 +28,6 @@ export interface CreateSessionPageProps {
 }
 
 // --- Esquema de Validación con Zod ---
-// Definimos el esquema aquí para poder reutilizarlo y mantener los tipos consistentes.
 export const createSessionSchema = z.object({
   title: z.string().min(1, { message: 'validation.title_required' }).min(3, { message: 'validation.title_min_length' }),
   description: z.string().min(1, { message: 'validation.description_required' }).min(10, { message: 'validation.description_min_length' }),
@@ -39,16 +38,14 @@ export const createSessionSchema = z.object({
   requires_approval: z.boolean(),
   difficulty: z.string().min(1, { message: 'validation.difficulty_required' }),
   max_participants: z.string().min(1, { message: 'validation.max_participants_required' }),
-  date: z.string().min(1, { message: 'validation.date_required' }),
-  time: z.string().min(1, { message: 'validation.time_required' }),
+  start_date: z.string().min(1, { message: 'validation.date_required' }),
+  start_time: z.string().min(1, { message: 'validation.time_required' }),
   duration: z.string().min(1, { message: 'validation.duration_required' }),
 });
 
-// Derivamos el tipo de TypeScript directamente del esquema de Zod
 export type CreateSessionFormData = z.infer<typeof createSessionSchema>;
 
 
-// --- Tipos para las Traducciones (i18n) ---
 export interface CreateSessionI18n {
   header: {
     title: string;

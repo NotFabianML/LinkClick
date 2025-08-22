@@ -22,6 +22,7 @@ import SessionDetailComponent from "../pages/SessionDetail";
 import DiscoverSessionsComponent from "../pages/DiscoverSessions";
 import LeaderboardComponent from "../pages/Leaderboard"
 import AdminComponent from "../pages/Admin";
+import ChatComponent from "../pages/Chat";
 
 
 // 3. Envuelve cada componente que necesite los providers
@@ -39,6 +40,7 @@ const SessionDetail = withProviders(SessionDetailComponent);
 const DiscoverSessions = withProviders(DiscoverSessionsComponent);
 const Leaderboard = withProviders(LeaderboardComponent);
 const Admin = withProviders(AdminComponent);
+const Chat = withProviders(ChatComponent);
 
 // 4. Registra las versiones finales "envueltas"
 ReactOnRails.register({
@@ -55,7 +57,8 @@ ReactOnRails.register({
   SessionDetail,
   DiscoverSessions,
   Leaderboard,
-  Admin
+  Admin,
+  Chat
 });
 
 

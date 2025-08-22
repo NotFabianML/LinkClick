@@ -23,7 +23,19 @@ class ApplicationController < ActionController::Base
 
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [ :first_name, :last_name, :role ])
+    #   devise_parameter_sanitizer.permit(:sign_up, keys: [ :first_name, :last_name, :role ])
+    #   devise_parameter_sanitizer.permit(:account_update, keys: [ :first_name, :last_name, :bio, :linkedin_url, :github_url ])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [
+      :first_name,
+      :last_name,
+      :role,
+      :website,
+      :github_url,
+      :linkedin_url,
+      # This special syntax allows an array of IDs to be accepted for the 'interests' association.
+      interest_ids: []
+    ])
+
     devise_parameter_sanitizer.permit(:account_update, keys: [ :first_name, :last_name, :bio, :linkedin_url, :github_url ])
   end
 

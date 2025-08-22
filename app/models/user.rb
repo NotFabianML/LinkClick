@@ -27,6 +27,12 @@ class User < ApplicationRecord
 
   has_many :join_requests, dependent: :destroy
 
+  has_many :sent_connections, class_name: "Connection", foreign_key: "user_id", dependent: :destroy
+  has_many :received_connections, class_name: "Connection", foreign_key: "friend_id", dependent: :destroy
+
+  has_and_belongs_to_many :conversations, join_table: "conversations_users"
+
+  # --- RANKINGS ---
   def self.top_learners(period = "monthly")
     calculate_rankings(scope_by_period(period, :student), :learner)
   end
@@ -39,17 +45,34 @@ class User < ApplicationRecord
     calculate_rankings(scope_by_period(period, :student), :active)
   end
 
+  # --- CONNECTIONS ---
+  def connections
+    sent_friend_ids = self.sent_connections.where(status: Connection::STATUS[:accepted]).pluck(:friend_id)
+    received_friend_ids = self.received_connections.where(status: Connection::STATUS[:accepted]).pluck(:user_id)
+
+    User.where(id: sent_friend_ids + received_friend_ids)
+  end
+
+  # Helper method to easily find pending incoming requests.
+  def pending_requests
+    self.received_connections.pending
+  end
+
   private
 
   def self.scope_by_period(period, role)
     base_scope = self.where(role: ROLES[role])
-    case period
+
+    scoped_users = case period
     when "weekly"
       base_scope.joins(:participated_sessions).where("sessions.created_at >= ?", 1.week.ago)
     when "monthly"
       base_scope.joins(:participated_sessions).where("sessions.created_at >= ?", 1.month.ago)
+    else
       base_scope
-    end.distinct
+    end
+
+    scoped_users.distinct
   end
 
   def self.calculate_rankings(users, type)

@@ -19,21 +19,23 @@ interface LeaderboardData {
 
 const LeaderboardPage = (props: LeaderboardPageProps) => {
   const i18n = useI18n();
-  
-  // Estado para los datos, el filtro de tiempo y el estado de carga/error
-  const [leaderboardData, setLeaderboardData] = useState<LeaderboardData | null>(null);
+
+  const [leaderboardData, setLeaderboardData] =
+    useState<LeaderboardData | null>(null);
   const [timePeriod, setTimePeriod] = useState("monthly");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Efecto para obtener los datos del backend cada vez que cambia el período de tiempo
   useEffect(() => {
     const fetchLeaderboardData = async () => {
       setLoading(true);
       setError(null);
       try {
-        const locale = (window as any).sharedProps?.locale_data?.current_locale || "en";
-        const response = await axios.get(`/${locale}/leaderboard.json?period=${timePeriod}`);
+        const locale =
+          (window as any).sharedProps?.locale_data?.current_locale || "en";
+        const response = await axios.get(
+          `/${locale}/leaderboard.json?period=${timePeriod}`
+        );
         setLeaderboardData(response.data.leaderboard_data);
       } catch (err) {
         console.error("Error fetching leaderboard data:", err);
@@ -44,8 +46,7 @@ const LeaderboardPage = (props: LeaderboardPageProps) => {
     };
 
     fetchLeaderboardData();
-  }, [timePeriod]); // Se ejecuta cada vez que 'timePeriod' cambia
-
+  }, [timePeriod]);
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
       <main className="container mx-auto px-4 py-8">
@@ -55,22 +56,25 @@ const LeaderboardPage = (props: LeaderboardPageProps) => {
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Contenido Principal */}
           <div className="lg:col-span-3">
-            {loading && <p className="text-center text-muted-foreground py-12">Loading leaderboard...</p>}
-            {error && <p className="text-center text-destructive py-12">{error}</p>}
-            
-            {/* Solo renderizamos las pestañas si tenemos datos */}
+            {loading && (
+              <p className="text-center text-muted-foreground py-12">
+                Loading leaderboard...
+              </p>
+            )}
+            {error && (
+              <p className="text-center text-destructive py-12">{error}</p>
+            )}
+
             {!loading && !error && leaderboardData && (
-              <LeaderboardTabs
-                data={leaderboardData}
-                timePeriod={timePeriod}
-              />
+              <LeaderboardTabs data={leaderboardData} timePeriod={timePeriod} />
             )}
           </div>
 
-          {/* Barra Lateral */}
-          <LeaderboardSidebar />
+          <LeaderboardSidebar
+            currentUserStats={props.current_user_stats}
+            achievements={props.achievements}
+          />
         </div>
       </main>
     </div>

@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+  namespace :api do
+    namespace :v1 do
+      get "connections/index"
+      get "messages/index"
+      get "messages/create"
+      get "conversations/index"
+    end
+  end
+  get "chat/index"
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
     devise_for :users
     root "home#index"
@@ -6,6 +15,22 @@ Rails.application.routes.draw do
     get "/browse", to: "browse#index"
     get "/leaderboard", to: "leaderboard#index"
     get "/chat", to: "chat#index"
+
+    namespace :api do
+      namespace :v1 do
+        resources :connections, only: [ :index ]
+
+        resources :conversations, only: [ :index, :create ] do
+          resources :messages, only: [ :index, :create ]
+        end
+
+        resources :sessions, only: [] do
+          # GET /api/v1/sessions/:session_id/messages
+          # POST /api/v1/sessions/:session_id/messages
+          resources :messages, only: [ :index, :create ], module: :sessions
+        end
+      end
+    end
 
     resources :users, only: [ :index, :show ]
     resource :profile, only: [ :show, :edit, :update, :destroy ]

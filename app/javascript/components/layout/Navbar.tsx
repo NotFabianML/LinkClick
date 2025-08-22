@@ -43,7 +43,8 @@ const Navbar = (props: SharedProps) => {
   const logoHref = user.logged_in ? "/dashboard" : "/";
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-lg border-b border-border/40">
+    <nav className="">
+    {/* <nav className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-lg border-b border-border/40"> */}
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         {/* Left Side */}
         <div className="flex items-center gap-6">

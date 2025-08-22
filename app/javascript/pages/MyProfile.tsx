@@ -21,13 +21,46 @@ import SettingsTabContent from "../components/my-profile/SettingsTabContent";
 import PrivacyTabContent from "../components/my-profile/PrivacyTabContent";
 
 type MyProfilePageProps = SharedProps & {
-  user_data: UserProfileData;
+  user_data: {
+    data: {
+      id: string;
+      type: string;
+      attributes: UserProfileData;
+      relationships: any;
+    };
+    included?: Array<{ id: string; type: string; attributes: any }>;
+  };
   i18n: MyProfileI18n;
+};
+
+// This helper function reconstructs the flat user object
+const transformUserData = (data: MyProfilePageProps["user_data"]): UserProfileData => {
+  const attributes = data.data.attributes;
+
+  // Find and map the included interests
+  const interestIds = data.data.relationships.interests.data.map((i: any) => i.id);
+  const interests = (data.included || [])
+    .filter((item) => item.type === 'interest' && interestIds.includes(item.id))
+    .map((item) => ({ id: parseInt(item.id, 10), ...item.attributes }));
+
+  // Find and map the included badges
+  const badgeIds = data.data.relationships.badges.data.map((b: any) => b.id);
+  const badges = (data.included || [])
+    .filter((item) => item.type === 'badge' && badgeIds.includes(item.id))
+    .map((item) => ({ id: parseInt(item.id, 10), ...item.attributes }));
+
+  return {
+    ...attributes,
+    interests,
+    badges,
+  };
 };
 
 const MyProfilePage = (props: MyProfilePageProps) => {
   const i18n = useI18n();
-  const [user, setUser] = useState(props.user_data);
+  // const [user, setUser] = useState(props.user_data);
+  const transformedUser = transformUserData(props.user_data);
+  const [user, setUser] = useState(transformedUser);
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
@@ -35,7 +68,7 @@ const MyProfilePage = (props: MyProfilePageProps) => {
   const [newInterest, setNewInterest] = useState("");
 
   useEffect(() => {
-    setUser(props.user_data);
+    setUser(transformUserData(props.user_data));
   }, [props.user_data]);
 
   const handleSave = async () => {
