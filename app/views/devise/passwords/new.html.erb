@@ -1,0 +1,8 @@
+<%
+  react_props = {
+    i18n: t('devise.passwords.new'),
+    csrfToken: form_authenticity_token
+  }
+%>
+
+<%= react_component("ForgotPassword", props: react_props) %>

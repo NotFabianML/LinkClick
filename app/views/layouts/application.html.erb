@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "LinkClick - Template" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <script>
+      window.sharedProps = <%= @shared_props.to_json.html_safe %>;
+    </script>
+
+    <%= stylesheet_pack_tag "application" %>
+    <%= javascript_pack_tag "application" %>
+    
+  </head>
+
+  <body class="flex flex-col min-h-screen">
+    <header class="sticky top-0 z-[9999] w-full bg-background/80 backdrop-blur-lg border-b border-border/40">
+      <%= react_component("Navbar", props: @shared_props) %>
+    </header>
+    <main class="flex-grow">
+      <%= yield %>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,614 @@
+es:
+  navbar:
+    brand: Plantilla LinkClick
+    posts_link: Publicaciones
+    log_out: Cerrar Sesión
+    log_in: Iniciar Sesión
+    sign_up: Registrarse
+    chat_link: Chat
+    leaderboard_link: Clasificación
+    profile_link: Mi Perfil
+    sessions_link: Sesiones
+  
+  homepage:
+    hero:
+      badge: "Conectando Mentes Tech Mundialmente"
+      title_line1: "Aprende. Conecta."
+      title_line2: "Colabora."
+      subtitle: "Únete a LinkClick, la plataforma líder donde estudiantes y educadores de tecnología se unen para compartir conocimiento, crear conexiones y acelerar el aprendizaje a través de experiencias colaborativas."
+      cta_button1: "Inicia Tu Viaje"
+      cta_button2: "Explora la Comunidad"
+      stats:
+        users: "Usuarios Activos"
+        sessions: "Sesiones de Estudio"
+        rate: "Tasa de Éxito"
+    features:
+      title: "¿Por qué elegir LinkClick?"
+      subtitle: "Descubre las características que hacen que el aprendizaje y la colaboración sean fluidos"
+      cards:
+        matching:
+          title: "Matching Inteligente"
+          description: "Conecta con compañeros y mentores basados en tus intereses, habilidades y metas de aprendizaje usando nuestro sistema de matching inteligente."
+        interactive:
+          title: "Aprendizaje Interactivo"
+          description: "Participa en sesiones de estudio colaborativas con pizarras en tiempo real, notas compartidas y herramientas interactivas."
+        chat:
+          title: "Chat en Tiempo Real"
+          description: "Comunícate sin problemas con chat integrado, intercambio de archivos y videollamadas para una colaboración efectiva."
+        achievements:
+          title: "Sistema de Logros"
+          description: "Gana insignias y reconocimiento por tus contribuciones, ayudando a otros y alcanzando hitos de aprendizaje."
+        safety:
+          title: "Entorno Seguro"
+          description: "Aprende en un entorno seguro y moderado con usuarios verificados y controles de privacidad exhaustivos."
+        community:
+          title: "Comunidad Global"
+          description: "Únete a una red mundial de entusiastas de la tecnología, desde principiantes hasta expertos, todos apasionados por aprender."
+    how_it_works:
+      title: "Cómo Funciona"
+      subtitle: "Comienza en tres simples pasos"
+      steps:
+        step1:
+          title: "Crea Tu Perfil"
+          description: "Regístrate y cuéntanos sobre tus intereses, habilidades y metas de aprendizaje para obtener recomendaciones personalizadas."
+        step2:
+          title: "Encuentra Tu Conexión"
+          description: "Explora nuestra comunidad o deja que nuestro algoritmo inteligente te conecte con los compañeros de estudio y mentores perfectos."
+        step3:
+          title: "Empieza a Aprender"
+          description: "Únete a sesiones de estudio, colabora en proyectos y acelera tu viaje de aprendizaje con compañeros y expertos."
+    testimonials:
+      title: "Lo que Dicen Nuestros Usuarios"
+      subtitle: "Únete a miles de estudiantes y educadores satisfechos"
+      cards:
+        card1:
+          quote: "\"LinkClick transformó mi experiencia de aprendizaje. ¡Encontré compañeros de estudio y mentores increíbles que me ayudaron a conseguir el trabajo de mis sueños!\""
+          name: "Sarah Martinez"
+          role: "Estudiante de Ciencias de la Computación"
+        card2:
+          quote: "\"Como educador, LinkClick me ayuda a conectar con estudiantes apasionados de todo el mundo. ¡Las herramientas colaborativas son increíbles!\""
+          name: "Dr. James Wilson"
+          role: "Profesor de Ingeniería de Software"
+        card3:
+          quote: "\"Las funciones de colaboración en tiempo real cambian las reglas del juego. He aprendido más en 3 meses que en un año estudiando solo.\""
+          name: "Alex Liu"
+          role: "Desarrollador Full-Stack"
+    cta:
+      title: "¿Listo para Transformar Tu Aprendizaje?"
+      subtitle: "Únete a LinkClick hoy y sé parte de una próspera comunidad de entusiastas de la tecnología, aprendices y educadores de todo el mundo."
+      cta_button1: "Únete a LinkClick Gratis"
+      cta_button2: "Explora la Comunidad"
+      features:
+        feature1: "Unirse es gratis"
+        feature2: "No se requiere tarjeta de crédito"
+        feature3: "Empieza a aprender inmediatamente"
+  
+  devise:
+    sessions:
+      new:
+        title: Iniciar Sesión
+        description: Ingresa tu email y contraseña para acceder a tu cuenta.
+        email_label: Correo Electrónico
+        password_label: Contraseña
+        remember_me_label: Recordarme
+        submit_button: Iniciar Sesión
+        sign_up_link: Registrarse
+        forgot_password_link: ¿Olvidaste tu contraseña?
+    registrations:
+      new:
+        title: Registrarse
+        description: Crea una nueva cuenta para comenzar.
+        email_label: Correo Electrónico
+        password_label: Contraseña
+        password_confirmation_label: Confirmación de contraseña
+        submit_button: Registrarse
+        log_in_link: Iniciar Sesión
+    passwords:
+      new:
+        title: ¿Olvidaste tu contraseña?
+        description: >-
+          Ingresa tu email y te enviaremos instrucciones para restablecer tu
+          contraseña.
+        email_label: Correo Electrónico
+        submit_button: Enviarme instrucciones
+  dashboard_page:
+    welcome_back: ¡Bienvenido de vuelta, %{name}!
+    subtitle: Esto es lo que está pasando en tu viaje de aprendizaje hoy.
+    progress_title: Tu Progreso
+    quick_actions_title: Acciones Rápidas
+    upcoming_sessions_title: Próximas Sesiones
+    learning_goals_title: Metas de Aprendizaje
+    recent_activity_title: Actividad Reciente
+    suggested_connections_title: Conexiones Sugeridas
+    stats:
+      sessions_completed: Sesiones Completadas
+      hours_learned: Horas Aprendidas
+      connections: Conexiones
+      skills_acquired: Habilidades Adquiridas
+    actions:
+      create_session:
+        title: Crear Sesión
+        description: Inicia una nueva sesión de aprendizaje
+      browse_users:
+        title: Buscar Usuarios
+        description: Encuentra compañeros de aprendizaje
+      my_profile:
+        title: Mi Perfil
+        description: Actualiza tu información
+    empty_states:
+      no_upcoming_sessions: No tienes sesiones próximas
+      no_sessions_subtitle: ¡Busca sesiones o crea la tuya!
+      browse_sessions_button: Buscar Sesiones
+      no_goals: Aún no has definido metas de aprendizaje.
+      no_activity: No hay actividad reciente para mostrar.
+      no_suggestions: No hay sugerencias por ahora.
+    session_card:
+      join_button: Unirse
+      participants_count:
+        one: 1 participante
+        other: '%{count} participantes'
+    suggested_connections:
+      connect_button: "Conectar"
+      sessions_completed_count:
+        one: "1 sesión completada"
+        other: "%{count} sesiones completadas"
+
+  my_profile_page:
+    loading: "Cargando perfil..."
+    header:
+      title: "Mi Perfil"
+      subtitle: "Gestiona tu información de perfil y la configuración de tu cuenta."
+      edit_button: "Editar Perfil"
+      save_button: "Guardar Cambios"
+      saving_button: "Guardando..."
+      error_saving: "Ocurrió un error inesperado."
+    sidebar:
+      sessions: "Sesiones"
+      rating: "Rating"
+    tabs:
+      profile: "Perfil"
+      activity: "Actividad"
+      settings: "Ajustes"
+      privacy: "Privacidad"
+    profile_tab:
+      personal_info:
+        title: "Información Personal"
+        description: "Actualiza tus datos personales e información de contacto."
+        first_name: "Nombre"
+        last_name: "Apellido"
+        email: "Email"
+        phone: "Teléfono"
+        country: "País"
+        university: "Universidad"
+        bio: "Biografía"
+        bio_placeholder: "Cuéntanos un poco sobre ti..."
+      social_links:
+        title: "Links Sociales"
+        description: "Conecta tus perfiles sociales y profesionales."
+        website: "Sitio Web"
+        website_placeholder: "https://tuwebsite.com"
+        github: "GitHub"
+        github_placeholder: "tu-usuario"
+        linkedin: "LinkedIn"
+        linkedin_placeholder: "tu-usuario"
+      interests_skills:
+        title: "Intereses y Habilidades"
+        description: "Los temas que te interesan y las tecnologías que dominas."
+        add_placeholder: "Añadir nuevo interés o habilidad..."
+    activity_tab:
+      stats:
+        sessions_participated: "Sesiones Participadas"
+        hours_learned: "Horas Aprendidas"
+        connections: "Conexiones"
+      recent_activity:
+        title: "Actividad Reciente"
+        description: "Tus últimas acciones y logros en la plataforma."
+        empty: "No hay actividad reciente para mostrar."
+    settings_tab:
+      account_settings:
+        title: "Ajustes de la Cuenta"
+        description: "Gestiona tus preferencias y notificaciones de la cuenta."
+        email_notifications:
+          label: "Notificaciones por Email"
+          description: "Recibe actualizaciones por correo sobre tus sesiones."
+        session_reminders:
+          label: "Recordatorios de Sesión"
+          description: "Recibe notificaciones antes de que comiencen tus sesiones."
+        connection_requests:
+          label: "Solicitudes de Conexión"
+          description: "Permite que otros usuarios te envíen solicitudes de conexión."
+        marketing_emails:
+          label: "Emails de Marketing"
+          description: "Recibe actualizaciones sobre nuevas funcionalidades y noticias."
+      danger_zone:
+        title: "Zona de Peligro"
+        description: "Acciones irreversibles y destructivas."
+        delete_account:
+          label: "Eliminar Cuenta"
+          description: "Elimina permanentemente tu cuenta y todos los datos asociados."
+          button: "Eliminar Cuenta"
+          confirm_title: "¿Estás absolutamente seguro?"
+          confirm_description: "Esta acción no se puede deshacer. Esto eliminará permanentemente tu cuenta y borrará tus datos de nuestros servidores."
+          confirm_cancel: "Cancelar"
+          confirm_continue: "Continuar"
+    privacy_tab:
+      title: "Ajustes de Privacidad"
+      description: "Controla quién puede ver tu información y actividad."
+      profile_visibility:
+        label: "Visibilidad del Perfil"
+        options:
+          public: "Público - Cualquiera puede verlo"
+          connections: "Solo Conexiones"
+          private: "Privado - Solo yo"
+      show_email:
+        label: "Mostrar Correo Electrónico"
+        description: "Permitir que otros vean tu email."
+      show_phone:
+        label: "Mostrar Número de Teléfono"
+        description: "Permitir que otros vean tu teléfono."
+      show_activity:
+        label: "Mostrar Actividad"
+        description: "Mostrar tu actividad reciente a otros."
+      allow_messages:
+        label: "Permitir Mensajes"
+        description: "Dejar que otros te envíen mensajes directos."
+    toasts:
+      profile_update_success_title: "¡Perfil Actualizado!"
+      profile_update_success_description: "Tus cambios han sido guardados correctamente."
+      profile_update_error_title: "Error al Guardar"
+      account_delete_success_title: "Cuenta Eliminada"
+      account_delete_success_description: "Tu cuenta ha sido eliminada permanentemente. Serás redirigido."
+      account_delete_error_title: "Error"
+      account_delete_error_description: "No se pudo eliminar la cuenta. Por favor, inténtalo de nuevo."
+  user_profile_page:
+    loading: "Cargando perfil..."
+    sidebar:
+      edit_profile_button: "Editar Mi Perfil"
+    bio_card:
+      title: "Biografía"
+      empty: "No hay biografía disponible."
+    interests_card:
+      title: "Intereses y Habilidades"
+      empty: "No se han listado intereses o habilidades."
+    badges_card:
+      title: "Insignias Obtenidas"
+      empty: "Aún no ha obtenido insignias."
+    feedback_card:
+      title: "Feedback Recibido"
+      description: "Reseñas de sesiones y colaboraciones recientes."
+      empty: "Aún no ha recibido feedback."
+
+  create_session_page:
+    header:
+      title: "Crear Nueva Sesión"
+      subtitle: "Comparte tu conocimiento o aprende algo nuevo."
+      back_button: "Volver al Dashboard"
+    form:
+      error_summary: "Por favor corrige los siguientes errores:"
+      submit_button: "Crear Sesión"
+      submitting_button: "Creando..."
+    basic_info:
+      title: "Información Básica"
+      session_title:
+        label: "Título de la Sesión *"
+        placeholder: "Ej: 'Introducción a los conceptos básicos de React'"
+      description:
+        label: "Descripción *"
+        placeholder: "Describe qué aprenderán los participantes y qué pueden esperar."
+    session_type:
+      title: "Tipo de Sesión"
+      description: "Elige el formato que mejor se ajuste a tu actividad."
+      types:
+        quick_tutoring:
+          label: "Tutoría Rápida"
+          description: "Sesión de ayuda corta y enfocada"
+        deep_study:
+          label: "Sesión de Estudio Profundo"
+          description: "Sesión de aprendizaje a fondo"
+        project_collab:
+          label: "Colaboración en Proyecto"
+          description: "Para trabajar en proyectos juntos"
+        workshop:
+          label: "Taller Práctico"
+          description: "Sesión de aprendizaje práctico"
+        study_group:
+          label: "Grupo de Estudio"
+          description: "Aprendizaje colaborativo"
+        discussion:
+          label: "Discusión"
+          description: "Conversación basada en un tema"
+    skills:
+      title: "Habilidades y Temas"
+      description: "Selecciona las tecnologías y temas que se cubrirán."
+      selected_skills: "Habilidades Seleccionadas:"
+    details:
+      title: "Detalles de la Sesión"
+      difficulty:
+        label: "Nivel de Dificultad"
+        placeholder: "Selecciona una dificultad"
+        options:
+          beginner: "Principiante"
+          intermediate: "Intermedio"
+          advanced: "Avanzado"
+      max_participants:
+        label: "Máximo de Participantes"
+        placeholder: "Selecciona el máximo"
+        options:
+          5: "5 participantes"
+          10: "10 participantes"
+          15: "15 participantes"
+          20: "20 participantes"
+          unlimited: "Ilimitado"
+      date: "Fecha"
+      time: "Hora"
+      duration:
+        label: "Duración"
+        placeholder: "Selecciona una duración"
+        placeholder_disabled: "Elige primero un tipo de sesión"
+        recommendation: "Duraciones recomendadas para %{type}"
+    privacy:
+      title: "Privacidad y Ajustes"
+      is_public: "Hacer la sesión pública"
+      allow_recording: "Permitir la grabación de la sesión"
+      requires_approval: "Requerir aprobación para unirse"
+    validation:
+      title_required: "El título de la sesión es obligatorio."
+      title_min_length: "El título debe tener al menos 3 caracteres."
+      description_required: "La descripción es obligatoria."
+      description_min_length: "La descripción debe tener al menos 10 caracteres."
+      session_type_required: "Por favor, selecciona un tipo de sesión."
+      interests_required: "Por favor, selecciona al menos una habilidad o tema."
+    toasts:
+      create_success_title: "¡Sesión Creada!"
+      create_success_description: "Tu nueva sesión ha sido publicada correctamente."
+      create_error_title: "Error al Crear la Sesión"
+      create_error_description: "Hubo un problema. Por favor, revisa el formulario e inténtalo de nuevo."
+  session_page:
+    loading: "Cargando sesión..."
+    header:
+      participants: "Participantes:"
+      action_buttons:
+        edit: "Editar Sesión"
+        is_participant: "Ya eres participante"
+        request_join: "Solicitar Unirse"
+    chat:
+      title: "Chat de la Sesión"
+      placeholder: "Escribe tu mensaje..."
+    sidebar:
+      tabs:
+        details: "Detalles"
+        ai_suggest: "Sugerencias IA"
+        notepad: "Notas"
+        whiteboard: "Pizarra"
+      details_tab:
+        description_title: "Descripción de la Sesión"
+        schedule_title: "Horario"
+        no_date: "Fecha no definida"
+        no_time: "Hora no definida"
+      ai_tab:
+        title: "Recomendaciones IA"
+        subtitle: "Participantes ideales para tu sesión"
+        refresh_button: "Refrescar"
+        compatibility: "Compatibilidad"
+        invite_button: "Invitar a la Sesión"
+        matching_info_title: "Matching con IA"
+        matching_info_description: "Recomendaciones basadas en el tema de la sesión, habilidades, ratings y disponibilidad."
+      notepad_tab:
+        title: "Notas Colaborativas"
+        edit_button: "Editar"
+        preview_button: "Preview"
+        placeholder: "Comienza a tomar notas colaborativas aquí usando Markdown..."
+      whiteboard_tab:
+        title: "Pizarra Digital"
+        description: "Pizarra colaborativa para esbozar ideas y diagramas."
+        launch_button: "Lanzar Pizarra"
+    toasts:
+      join_request_success_title: "¡Solicitud Enviada!"
+      join_request_success_description: "El creador de la sesión ha sido notificado de tu solicitud."
+      join_request_error_title: "Error al Enviar la Solicitud"
+      join_request_error_description: "Hubo un problema al enviar tu solicitud. Por favor, inténtalo de nuevo."
+
+  browse_page:
+    header:
+      title: "Explora y Descubre"
+      subtitle: "Encuentra compañeros de aprendizaje y expande tu red."
+    filters:
+      search_placeholder: "Buscar usuarios por nombre..."
+      role_title: "Rol"
+      roles:
+        all: "Todos"
+        student: "Estudiante"
+        teacher: "Profesor"
+      interests_title: "Intereses"
+      clear_button: "Limpiar Filtros"
+    results:
+      users_found:
+        one: "1 usuario encontrado"
+        other: "%{count} usuarios encontrados"
+      no_users_found: "No se encontraron usuarios que coincidan con tus criterios."
+      top_interests: "Intereses Principales:"
+
+  discover_sessions_page:
+    header:
+      title: "Descubre Sesiones"
+      subtitle: "Únete a sesiones de aprendizaje y colabora con otros."
+      create_button: "Crear Sesión"
+    filters:
+      search_placeholder: "Buscar sesiones, habilidades o instructores..."
+      sort_by:
+        label: "Ordenar por"
+        date: "Fecha"
+        popularity: "Popularidad"
+        rating: "Rating"
+      filters_button: "Filtros"
+      advanced_filters_title: "Filtros Avanzados"
+      session_type_label: "Tipo de Sesión"
+      all_types: "Todos los Tipos"
+      difficulty_label: "Dificultad"
+      all_levels: "Todos los Niveles"
+      skills_label: "Habilidades"
+      clear_button: "Limpiar Filtros"
+    featured:
+      title: "Sesiones Destacadas"
+      badge: "Destacada"
+    results:
+      title: "Todas las Sesiones"
+      sessions_found:
+        one: "1 sesión encontrada"
+        other: "%{count} sesiones encontradas"
+      no_sessions_found: "No se encontraron sesiones que coincidan con tus criterios."
+      join_button: "Unirse a la Sesión"
+      view_button: "Ver Detalles"
+      skills_more: "+%{count} más"
+
+  leaderboard_page:
+    header:
+      breadcrumb: "Clasificación"
+      title: "Clasificación"
+      subtitle: "Celebra los logros y sigue tu progreso."
+      time_periods:
+        weekly: "Esta Semana"
+        monthly: "Este Mes"
+        all_time: "Todo el Tiempo"
+    tabs:
+      learners: "Mejores Estudiantes"
+      teachers: "Mejores Profesores"
+      active: "Más Activos"
+    learners_table:
+      title: "Mejores Estudiantes"
+      subtitle: "Estudiantes que están sobresaliendo en su viaje de aprendizaje."
+      you_badge: "Tú"
+      stats: "%{sessions} sesiones • %{hours}h aprendidas"
+      points: "puntos"
+    teachers_table:
+      title: "Mejores Profesores"
+      subtitle: "Educadores que tienen el mayor impacto en nuestra comunidad."
+      stats: "%{sessions} sesiones • %{students} estudiantes ayudados"
+      points: "puntos"
+    active_table:
+      title: "Más Activos"
+      subtitle: "Usuarios con la mayor participación y consistencia."
+      stats: "racha de %{streak} días • %{hours}h esta semana"
+      points: "puntos de actividad"
+    sidebar:
+      your_stats:
+        title: "Tus Estadísticas"
+        total_points: "Puntos Totales"
+        rank: "Rango"
+        sessions: "Sesiones"
+        next_milestone: "Próximo hito"
+      achievements:
+        title: "Logros"
+        subtitle: "Desbloquea insignias alcanzando hitos."
+        view_all_button: "Ver Todos los Logros"
+        rarities:
+          common: "Común"
+          uncommon: "Poco Común"
+          rare: "Raro"
+          epic: "Épico"
+          legendary: "Legendario"
+      quick_stats:
+        growth: "Crecimiento este mes"
+      
+  admin_page:
+    header:
+      breadcrumb: "Admin"
+      title: "Panel de Administración"
+      subtitle: "Gestiona usuarios, monitorea la actividad de la plataforma y visualiza analíticas."
+      export_button: "Exportar Datos"
+      add_user_button: "Añadir Usuario"
+      exporting_button: "Exportando..."
+    sidebar:
+      title: "Secciones de Admin"
+      users:
+        title: "Gestión de Usuarios"
+        description: "Gestionar todos los usuarios"
+      analytics:
+        title: "Analíticas"
+        description: "Ver estadísticas"
+      settings:
+        title: "Ajustes"
+        description: "Configuración"
+    users_tab:
+      title: "Gestión de Usuarios"
+      subtitle: "Gestiona todos los usuarios de la plataforma y sus roles."
+      selected_badge: "%{count} seleccionados"
+      email_button: "Email"
+      delete_button: "Eliminar"
+      filters:
+        search_placeholder: "Buscar por nombre o email..."
+        all_roles: "Todos los Roles"
+        teachers: "Profesores"
+        students: "Estudiantes"
+        all_status: "Todos los Estados"
+        active: "Activo"
+        inactive: "Inactivo"
+        more_filters: "Más Filtros"
+      table_headers:
+        user: "Usuario"
+        role_rating: "Rol y Rating"
+        activity: "Actividad"
+        status: "Estado"
+        location: "Ubicación"
+        actions: "Acciones"
+      user_stats:
+        sessions_created: "%{count} sesiones creadas"
+        sessions_joined: "%{count} sesiones unidas"
+      no_users_found:
+        title: "No se encontraron usuarios"
+        subtitle: "Intenta ajustar tus criterios de búsqueda o filtros."
+      actions:
+        view_details: "Ver Detalles"
+        deactivate_user: "Desactivar Usuario"
+        activate_user: "Activar Usuario"
+      details_modal:
+        title: "Detalles del Usuario"
+        description: "Información detallada sobre %{name}"
+        join_date: "Fecha de Registro"
+        last_active: "Última Actividad"
+        rating: "Calificación"
+        location: "Ubicación"
+      delete_modal:
+        title: "¿Estás seguro?"
+        description: "Esta acción no se puede deshacer. Esto eliminará permanentemente la cuenta del usuario."
+        cancel: "Cancelar"
+        confirm: "Eliminar"
+    analytics_tab:
+      title: "Analíticas de la Plataforma"
+      subtitle: "Resumen completo de la actividad de la plataforma y la participación de los usuarios."
+      # ...
+    settings_tab:
+      title: "Ajustes de la Plataforma"
+      subtitle: "Configura los ajustes generales de la plataforma y las preferencias administrativas."
+      # ...
+    toasts:
+      export_success: "Los datos de usuario han sido exportados correctamente."
+      export_error: "No se pudieron exportar los datos de usuario."
+      user_toggle_status_success: "El estado del usuario ha sido actualizado correctamente."
+      user_toggle_status_error: "No se pudo actualizar el estado del usuario."
+
+  user_status:
+    active: "Activo"
+    inactive: "Inactivo"
+
+  session_difficulties:
+    beginner: "Principiante"
+    intermediate: "Intermedio"
+    advanced: "Avanzado"
+
+  chat_page:
+    header:
+      breadcrumb_part1: "Dashboard"
+      breadcrumb_part2: "Mensajes"
+      title: "Mensajes"
+      subtitle: "Conecta y colabora con la comunidad"
+    sidebar:
+      title: "Conversaciones"
+      search_placeholder: "Buscar conversaciones..."
+    chat_window:
+      online: "En línea"
+      offline: "Desconectado"
+      message_placeholder: "Escribe un mensaje..."
+    empty_state:
+      title: "Selecciona una conversación"
+      subtitle: "Elige una conversación de la barra lateral para empezar a chatear"
