@@ -588,3 +588,25 @@ en:
   user_status:
     active: "Active"
     inactive: "Inactive"
+
+  session_difficulties:
+    beginner: "Beginner"
+    intermediate: "Intermediate"
+    advanced: "Advanced"
+
+  chat_page:
+    header:
+      breadcrumb_part1: "Dashboard"
+      breadcrumb_part2: "Messages"
+      title: "Messages"
+      subtitle: "Connect and collaborate with the community"
+    sidebar:
+      title: "Conversations"
+      search_placeholder: "Search conversations..."
+    chat_window:
+      online: "Online"
+      offline: "Offline"
+      message_placeholder: "Type a message..."
+    empty_state:
+      title: "Select a conversation"
+      subtitle: "Choose a conversation from the sidebar to start chatting"

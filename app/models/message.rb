@@ -1,4 +1,4 @@
 class Message < ApplicationRecord
-  belongs_to :session
-  belongs_to :sender
+  belongs_to :messageable, polymorphic: true
+  belongs_to :sender, class_name: "User"
 end

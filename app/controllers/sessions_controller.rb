@@ -50,9 +50,36 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @session = current_user.created_sessions.build(session_params)
+    session_attributes = session_params.except(:start_date, :start_time, :duration)
+    @session = current_user.created_sessions.build(session_attributes)
+    @session.status = Session::STATUS[:published]
 
-    if @session.save
+    start_date = session_params[:start_date]
+    start_time = session_params[:start_time]
+    duration_in_hours = session_params[:duration].to_f
+
+    if start_date.present? && start_time.present?
+      begin
+        event_start_time = DateTime.parse("#{start_date} #{start_time}")
+        event_end_time = event_start_time + duration_in_hours.hours
+
+        @session.build_event(
+          start_time: event_start_time,
+          end_time: event_end_time
+        )
+      rescue ArgumentError
+        @session.errors.add(:base, "Invalid date or time format.")
+      end
+    end
+
+    # if @session.save
+    #   render json: { redirect_url: session_url(@session) }, status: :created
+    # else
+    #   render json: { errors: @session.errors.full_messages }, status: :unprocessable_entity
+    # end
+
+    if @session.errors.empty? && @session.save
+      # Saving the session will also save the associated event
       render json: { redirect_url: session_url(@session) }, status: :created
     else
       render json: { errors: @session.errors.full_messages }, status: :unprocessable_entity
@@ -88,16 +115,21 @@ class SessionsController < ApplicationController
           }
         end,
 
-        messages: @session.messages.includes(:sender).order(created_at: :asc).map do |m|
-          {
-            id: m.id,
-            sender_name: "#{m.sender.first_name} #{m.sender.last_name}",
-            sender_initials: "#{m.sender.first_name&.first}#{m.sender.last_name&.first}",
-            content: m.content,
-            timestamp: m.created_at.strftime("%I:%M %p"),
-            is_current_user: (m.sender_id == current_user.id)
-          }
-        end,
+        # messages: @session.messages.includes(:sender).order(created_at: :asc).map do |m|
+        #   {
+        #     id: m.id,
+        #     sender_name: "#{m.sender.first_name} #{m.sender.last_name}",
+        #     sender_initials: "#{m.sender.first_name&.first}#{m.sender.last_name&.first}",
+        #     content: m.content,
+        #     timestamp: m.created_at.strftime("%I:%M %p"),
+        #     is_current_user: (m.sender_id == current_user.id)
+        #   }
+        # end,
+
+        messages: Api::V1::MessageSerializer.new(
+        @session.messages.includes(:sender).order(created_at: :asc),
+        params: { current_user: current_user }
+      ).serializable_hash[:data].map { |item| item[:attributes] },
 
         event_data: {
           scheduled_date: @session.event&.start_time&.strftime("%B %d, %Y"),

@@ -21,13 +21,21 @@ class Session < ApplicationRecord
   def intermediate?; self.difficulty == DIFFICULTY[:intermediate]; end
   def advanced?; self.difficulty == DIFFICULTY[:advanced]; end
 
+  # --- Validations ---
+  validates :title, presence: true, length: { minimum: 3 }
+  validates :description, presence: true, length: { minimum: 10 }
+  validates :session_type, presence: true
+  validates :difficulty, presence: true
+
   # --- ASOCIACIONES ---
 
   has_one :event, dependent: :destroy
-  has_many :messages, dependent: :destroy
+  has_many :messages, as: :messageable, dependent: :destroy
   has_many :resources, dependent: :destroy
   has_many :feedbacks, dependent: :destroy
   has_and_belongs_to_many :participants, class_name: "User", join_table: "sessions_users"
+
+  has_and_belongs_to_many :interests, join_table: "interests_sessions"
 
   has_many :join_requests, dependent: :destroy
 end

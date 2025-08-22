@@ -10,6 +10,7 @@ export * from "./browse.types";
 export * from "./discover_sessions.types";
 export * from "./leaderboard.types";
 export * from "./admin.types";
+export * from "./chat.types";
 
 export interface LocaleData {
   en_url: string;

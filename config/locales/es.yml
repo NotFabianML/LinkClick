@@ -590,3 +590,25 @@ es:
   user_status:
     active: "Activo"
     inactive: "Inactivo"
+
+  session_difficulties:
+    beginner: "Principiante"
+    intermediate: "Intermedio"
+    advanced: "Avanzado"
+
+  chat_page:
+    header:
+      breadcrumb_part1: "Dashboard"
+      breadcrumb_part2: "Mensajes"
+      title: "Mensajes"
+      subtitle: "Conecta y colabora con la comunidad"
+    sidebar:
+      title: "Conversaciones"
+      search_placeholder: "Buscar conversaciones..."
+    chat_window:
+      online: "En línea"
+      offline: "Desconectado"
+      message_placeholder: "Escribe un mensaje..."
+    empty_state:
+      title: "Selecciona una conversación"
+      subtitle: "Elige una conversación de la barra lateral para empezar a chatear"
