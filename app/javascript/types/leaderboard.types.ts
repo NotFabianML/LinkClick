@@ -1,4 +1,3 @@
-// Define la estructura de un usuario en una de las tablas del leaderboard
 export interface LeaderboardUser {
   rank: number;
   name: string;
@@ -8,7 +7,7 @@ export interface LeaderboardUser {
   change: 'up' | 'down' | 'same';
   role: string;
   isCurrentUser?: boolean;
-  // Campos específicos por categoría
+
   sessionsJoined?: number;
   hoursLearned?: number;
   sessionsCreated?: number;
@@ -18,7 +17,6 @@ export interface LeaderboardUser {
   weeklyHours?: number;
 }
 
-// Define la estructura de un logro
 export interface Achievement {
   name: string;
   description: string;
@@ -26,15 +24,24 @@ export interface Achievement {
   rarity: 'common' | 'uncommon' | 'rare' | 'epic' | 'legendary';
 }
 
-// Props que la página recibe del controlador de Rails
-export interface LeaderboardPageProps {
-  i18n: LeaderboardPageI18n;
-  // En el futuro, los datos vendrán del controlador
-  // leaderboardData: { topLearners: LeaderboardUser[], ... }
-  // achievements: Achievement[]
+export interface CurrentUserStats {
+  totalPoints: number;
+  rank: number | string;
+  sessions: number;
+  nextMilestone: number;
 }
 
-// La interfaz para el objeto i18n de la página
+export interface LeaderboardPageProps {
+  i18n: LeaderboardPageI18n;
+  leaderboard_data: {
+    topLearners: LeaderboardUser[];
+    topTeachers: LeaderboardUser[];
+    mostActive: LeaderboardUser[];
+  };
+  current_user_stats: CurrentUserStats;
+  achievements: Achievement[];
+}
+
 export interface LeaderboardPageI18n {
   header: {
     breadcrumb: string;

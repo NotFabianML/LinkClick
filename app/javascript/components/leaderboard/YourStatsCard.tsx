@@ -1,22 +1,19 @@
 import React from "react";
 import { useI18n } from "../../contexts/I18nContext";
+import { CurrentUserStats } from "../../types";
 
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
 import { Target } from "lucide-react";
 
-// TODO: Estos datos vendrán del controlador en el futuro.
-const mockYourStats = {
-  totalPoints: 2480,
-  rank: 4,
-  sessions: 35,
-  nextMilestone: 2500,
-};
+interface YourStatsCardProps {
+  stats: CurrentUserStats;
+}
 
-const YourStatsCard = () => {
+const YourStatsCard = ({ stats }: YourStatsCardProps) => {
   const i18n = useI18n();
   const progressPercentage =
-    (mockYourStats.totalPoints / mockYourStats.nextMilestone) * 100;
+    (stats.totalPoints / stats.nextMilestone) * 100;
 
   return (
     <Card className="shadow-lg border-0 bg-card/50 backdrop-blur-sm">
@@ -29,7 +26,7 @@ const YourStatsCard = () => {
       <CardContent className="p-4 space-y-4">
         <div className="text-center">
           <div className="text-3xl font-bold text-primary">
-            {mockYourStats.totalPoints.toLocaleString()}
+            {stats.totalPoints.toLocaleString()}
           </div>
           <div className="text-sm text-muted-foreground">
             {i18n.sidebar.your_stats.total_points}
@@ -38,7 +35,7 @@ const YourStatsCard = () => {
         <div className="grid grid-cols-2 gap-4 text-center">
           <div className="p-3 bg-muted/30 rounded-lg">
             <div className="text-xl font-bold text-foreground">
-              #{mockYourStats.rank}
+              #{stats.rank}
             </div>
             <div className="text-xs text-muted-foreground">
               {i18n.sidebar.your_stats.rank}
@@ -46,7 +43,7 @@ const YourStatsCard = () => {
           </div>
           <div className="p-3 bg-muted/30 rounded-lg">
             <div className="text-xl font-bold text-foreground">
-              {mockYourStats.sessions}
+              {stats.sessions}
             </div>
             <div className="text-xs text-muted-foreground">
               {i18n.sidebar.your_stats.sessions}
@@ -59,7 +56,7 @@ const YourStatsCard = () => {
               {i18n.sidebar.your_stats.next_milestone}
             </span>
             <span className="font-medium">
-              {mockYourStats.nextMilestone.toLocaleString()} pts
+              {stats.nextMilestone.toLocaleString()} pts
             </span>
           </div>
           <div className="w-full bg-muted/30 rounded-full h-2 mt-2">

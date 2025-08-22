@@ -1,21 +1,30 @@
 import React from "react";
+import { useI18n } from "../../contexts/I18nContext";
+import { Achievement, CurrentUserStats } from "../../types";
 import YourStatsCard from "./YourStatsCard";
 import AchievementsCard from "./AchievementsCard";
-import { Card, CardContent } from "../ui/card";
-import { TrendingUp } from "lucide-react";
-import { useI18n } from "../../contexts/I18nContext";
 
-const LeaderboardSidebar = () => {
+import { Card, CardContent } from "../ui/card";
+
+import { TrendingUp } from "lucide-react";
+
+interface LeaderboardSidebarProps {
+  currentUserStats: CurrentUserStats;
+  achievements: Achievement[];
+}
+
+const LeaderboardSidebar = ({ currentUserStats, achievements }: LeaderboardSidebarProps) => {
   const i18n = useI18n();
 
   return (
     <div className="lg:col-span-1 space-y-6">
-      <YourStatsCard />
-      <AchievementsCard />
+      <YourStatsCard stats={currentUserStats} />
+      <AchievementsCard achievements={achievements}/>
 
       <Card className="shadow-lg border-0 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950 dark:to-blue-900">
         <CardContent className="p-4 text-center">
           <TrendingUp className="h-8 w-8 text-blue-600 mx-auto mb-2" />
+          {/* TODO: Implement growth percentage calculation */}
           <div className="text-2xl font-bold text-blue-700 dark:text-blue-300">
             +15%
           </div>

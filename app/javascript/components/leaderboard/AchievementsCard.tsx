@@ -14,45 +14,49 @@ import { Award } from "lucide-react";
 
 import { Achievement } from "../../types";
 
+interface AchievementsCardProps {
+  achievements: Achievement[];
+}
+
 // TODO: Estos datos vendrán del controlador en el futuro.
-const mockAchievements: Achievement[] = [
-  {
-    name: "First Steps",
-    description: "Complete your first session",
-    icon: "🚀",
-    rarity: "common",
-  },
-  {
-    name: "Knowledge Seeker",
-    description: "Join 10 sessions",
-    icon: "📚",
-    rarity: "common",
-  },
-  {
-    name: "Rising Star",
-    description: "Earn 1000 points",
-    icon: "⭐",
-    rarity: "uncommon",
-  },
-  {
-    name: "Mentor",
-    description: "Help 5 students",
-    icon: "🤝",
-    rarity: "uncommon",
-  },
-  {
-    name: "Expert",
-    description: "Create 10 sessions",
-    icon: "👨‍🏫",
-    rarity: "rare",
-  },
-  {
-    name: "Perfectionist",
-    description: "Maintain 4.8+ rating",
-    icon: "🎯",
-    rarity: "rare",
-  },
-];
+// const mockAchievements: Achievement[] = [
+//   {
+//     name: "First Steps",
+//     description: "Complete your first session",
+//     icon: "🚀",
+//     rarity: "common",
+//   },
+//   {
+//     name: "Knowledge Seeker",
+//     description: "Join 10 sessions",
+//     icon: "📚",
+//     rarity: "common",
+//   },
+//   {
+//     name: "Rising Star",
+//     description: "Earn 1000 points",
+//     icon: "⭐",
+//     rarity: "uncommon",
+//   },
+//   {
+//     name: "Mentor",
+//     description: "Help 5 students",
+//     icon: "🤝",
+//     rarity: "uncommon",
+//   },
+//   {
+//     name: "Expert",
+//     description: "Create 10 sessions",
+//     icon: "👨‍🏫",
+//     rarity: "rare",
+//   },
+//   {
+//     name: "Perfectionist",
+//     description: "Maintain 4.8+ rating",
+//     icon: "🎯",
+//     rarity: "rare",
+//   },
+// ];
 
 const getRarityColor = (rarity: string, i18n: any) => {
   const colors: { [key: string]: string } = {
@@ -67,7 +71,7 @@ const getRarityColor = (rarity: string, i18n: any) => {
   return colors[rarity] || "bg-muted/50 text-muted-foreground";
 };
 
-const AchievementsCard = () => {
+const AchievementsCard = ({ achievements }: AchievementsCardProps) => {
   const i18n = useI18n();
 
   return (
@@ -81,7 +85,7 @@ const AchievementsCard = () => {
       </CardHeader>
       <CardContent className="p-4">
         <div className="space-y-3">
-          {mockAchievements.slice(0, 6).map((achievement, index) => (
+          {achievements.slice(0, 6).map((achievement, index) => (
             <div
               key={index}
               className="flex items-center gap-3 p-2 rounded-lg bg-muted/30"
