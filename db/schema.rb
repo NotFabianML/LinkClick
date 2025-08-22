@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_22_041849) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_22_213014) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -33,6 +33,30 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_22_041849) do
   create_table "badges_users", id: false, force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "badge_id", null: false
+    t.index ["user_id", "badge_id"], name: "index_badges_users_on_user_and_badge"
+  end
+
+  create_table "connections", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "friend_id", null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["friend_id"], name: "index_connections_on_friend_id"
+    t.index ["user_id", "friend_id"], name: "index_connections_on_user_id_and_friend_id", unique: true
+    t.index ["user_id"], name: "index_connections_on_user_id"
+  end
+
+  create_table "conversations", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "conversations_users", id: false, force: :cascade do |t|
+    t.bigint "conversation_id", null: false
+    t.bigint "user_id", null: false
+    t.index ["conversation_id", "user_id"], name: "index_conversations_users_on_conversation_id_and_user_id"
+    t.index ["user_id", "conversation_id"], name: "index_conversations_users_on_user_id_and_conversation_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -64,9 +88,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_22_041849) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "interests_sessions", id: false, force: :cascade do |t|
+    t.bigint "interest_id", null: false
+    t.bigint "session_id", null: false
+    t.index ["interest_id", "session_id"], name: "index_interests_sessions_on_interest_id_and_session_id"
+    t.index ["session_id", "interest_id"], name: "index_interests_sessions_on_session_id_and_interest_id"
+  end
+
   create_table "interests_users", id: false, force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "interest_id", null: false
+    t.index ["user_id", "interest_id"], name: "index_interests_users_on_user_and_interest"
   end
 
   create_table "join_requests", force: :cascade do |t|
@@ -80,13 +112,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_22_041849) do
   end
 
   create_table "messages", force: :cascade do |t|
-    t.bigint "session_id", null: false
     t.bigint "sender_id", null: false
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "messageable_type", null: false
+    t.bigint "messageable_id", null: false
+    t.index ["messageable_type", "messageable_id"], name: "index_messages_on_messageable"
     t.index ["sender_id"], name: "index_messages_on_sender_id"
-    t.index ["session_id"], name: "index_messages_on_session_id"
   end
 
   create_table "resources", force: :cascade do |t|
@@ -120,6 +153,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_22_041849) do
   create_table "sessions_users", id: false, force: :cascade do |t|
     t.bigint "session_id", null: false
     t.bigint "user_id", null: false
+    t.index ["session_id", "user_id"], name: "index_sessions_users_on_session_and_user"
   end
 
   create_table "users", force: :cascade do |t|
@@ -160,13 +194,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_22_041849) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "connections", "users"
+  add_foreign_key "connections", "users", column: "friend_id"
   add_foreign_key "events", "sessions"
   add_foreign_key "feedbacks", "sessions"
   add_foreign_key "feedbacks", "users", column: "giver_id"
   add_foreign_key "feedbacks", "users", column: "receiver_id"
   add_foreign_key "join_requests", "sessions"
   add_foreign_key "join_requests", "users"
-  add_foreign_key "messages", "sessions"
   add_foreign_key "messages", "users", column: "sender_id"
   add_foreign_key "resources", "sessions"
   add_foreign_key "sessions", "users", column: "creator_id"
