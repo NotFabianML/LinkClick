@@ -26,7 +26,12 @@ export interface UserData {
   last_name: string | null;
   abilities: {
     can_create_session: boolean;
+    can_view_browse: boolean;
+    can_view_sessions: boolean;
+    can_view_chat: boolean;
     can_view_leaderboard: boolean;
+    can_access_admin_dashboard: boolean;
+
     // ... otros permisos
   };
 }

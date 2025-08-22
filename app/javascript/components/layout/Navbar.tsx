@@ -14,7 +14,7 @@ import {
 } from "../ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
-import { LogOut, MessageSquare, Trophy, User, Plus } from "lucide-react";
+import { LogOut, MessageSquare, Trophy, User, Plus, BookOpen, Compass, LayoutDashboard } from "lucide-react";
 
 declare const Turbo: any;
 
@@ -53,13 +53,29 @@ const Navbar = (props: SharedProps) => {
           </NavLink>
           {user.logged_in && (
             <>
-              <NavLink href="/sessions" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-                {i18n.navbar.sessions_link}
-              </NavLink>
-              <NavLink href="/chat" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
-                <MessageSquare className="h-4 w-4" /> {i18n.navbar.chat_link}
-              </NavLink>
-              {/* Ejemplo de enlace condicional para el futuro */}
+              {/* Admin-specific link */}
+              {user.abilities.can_access_admin_dashboard && (
+                <NavLink href="/admin/dashboard" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
+                  <LayoutDashboard className="h-4 w-4" /> Admin
+                </NavLink>
+              )}
+
+              {/* Student & Teacher links */}
+              {user.abilities.can_view_browse && (
+                <NavLink href="/browse" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
+                  <Compass className="h-4 w-4" /> Browse
+                </NavLink>
+              )}
+              {user.abilities.can_view_sessions && (
+                <NavLink href="/sessions" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
+                  <BookOpen className="h-4 w-4" /> {i18n.navbar.sessions_link}
+                </NavLink>
+              )}
+              {user.abilities.can_view_chat && (
+                 <NavLink href="/chat" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
+                  <MessageSquare className="h-4 w-4" /> {i18n.navbar.chat_link}
+                </NavLink>
+              )}
               {user.abilities.can_view_leaderboard && (
                 <NavLink href="/leaderboard" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
                   <Trophy className="h-4 w-4" /> {i18n.navbar.leaderboard_link}

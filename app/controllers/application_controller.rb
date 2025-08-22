@@ -66,9 +66,11 @@ class ApplicationController < ActionController::Base
         last_name: user_signed_in? ? current_user.last_name : nil,
 
         abilities: {
-          can_create_session: user_signed_in? && can?(:create, Session),
-          can_view_leaderboard: user_signed_in? && can?(:view, :leaderboard) # Ejemplo para el futuro
-          # Añade aquí cualquier otro permiso que el frontend necesite conocer.
+          ccan_view_browse: user_signed_in? && can?(:view, :browse),
+          can_view_sessions: user_signed_in? && can?(:view, :sessions),
+          can_view_chat: user_signed_in? && can?(:view, :chat),
+          can_view_leaderboard: user_signed_in? && can?(:view, :leaderboard),
+          can_access_admin_dashboard: user_signed_in? && can?(:access, :admin_dashboard)
         }
       },
       locale_data: {

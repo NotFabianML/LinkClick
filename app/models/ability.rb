@@ -35,33 +35,59 @@ class Ability
     if user.admin?
       # Los administradores pueden gestionar absolutamente todo.
       can :manage, :all
-    elsif user.teacher?
-      # Los profesores pueden leer todas las sesiones públicas.
-      can :read, Session, status: :published
+      can :access, :admin_dashboard
+    # elsif user.teacher?
+    #   # Los profesores pueden leer todas las sesiones públicas.
+    #   can :read, Session, status: :published
 
-      # Pueden crear nuevas sesiones.
+    #   # Pueden crear nuevas sesiones.
+    #   can :create, Session
+
+    #   # Solo pueden actualizar o destruir las sesiones que ellos crearon.
+    #   can :update, Session, creator_id: user.id
+    #   can :destroy, Session, creator_id: user.id
+
+    #   # Pueden gestionar las solicitudes para unirse a sus propias sesiones.
+    #   can :manage, JoinRequest, session: { creator_id: user.id }
+
+    # elsif user.student?
+    #   # # Los estudiantes pueden leer todas las sesiones públicas.
+    #   # can :read, Session, status: :published
+
+    #   # # Pueden solicitar unirse a las sesiones.
+    #   # can :join, Session
+
+    #   # # pueden crear, actualizar o destruir sesiones.
+    #   # can :create, Session
+    #   # can :update, Session
+    #   # can :destroy, Session
+
+    #   can :manage, :all
+    # end
+    elsif user.persisted? && (user.student? || user.teacher?)
+      # Define general abilities for all authenticated users.
+      # They can view the main sections of the app.
+      can :view, :browse
+      can :view, :sessions
+      can :view, :chat
+      can :view, :leaderboard
+
+      # Abilities for their own profile
+      can :manage, :profile, user_id: user.id
+
+      # Abilities for sessions
       can :create, Session
-
-      # Solo pueden actualizar o destruir las sesiones que ellos crearon.
+      can :read, Session # They can read details of any session they have access to
       can :update, Session, creator_id: user.id
       can :destroy, Session, creator_id: user.id
+      can :join, Session
 
-      # Pueden gestionar las solicitudes para unirse a sus propias sesiones.
-      can :manage, JoinRequest, session: { creator_id: user.id }
+      # Abilities for other interactions
+      can :manage, JoinRequest, user_id: user.id
+      can :manage, Message, sender_id: user.id
 
-    elsif user.student?
-      # # Los estudiantes pueden leer todas las sesiones públicas.
-      # can :read, Session, status: :published
-
-      # # Pueden solicitar unirse a las sesiones.
-      # can :join, Session
-
-      # # pueden crear, actualizar o destruir sesiones.
-      # can :create, Session
-      # can :update, Session
-      # can :destroy, Session
-
-      can :manage, :all
+      # Explicitly deny access to the admin dashboard.
+      cannot :access, :admin_dashboard
     end
   end
 end

@@ -30,7 +30,7 @@ class Admin::DashboardController < ApplicationController
         initials: "#{user.first_name&.first}#{user.last_name&.first}",
         joinDate: user.created_at.strftime("%Y-%m-%d"),
         status: I18n.t("user_status.#{user.discarded? ? 'inactive' : 'active'}"),
-        lastActive: user.last_sign_in_at ? "#{time_ago_in_words(user.last_sign_in_at)} ago" : "Never",
+        lastActive: user.last_sign_in_at ? "#{helpers.time_ago_in_words(user.last_sign_in_at)} ago" : "Never",
         sessionsCreated: user.created_sessions.count,
         sessionsJoined: user.participated_sessions.count,
         rating: user.received_feedbacks.average(:rating)&.round(1) || 0,
