@@ -1,19 +1,20 @@
 // Este archivo actúa como el punto de entrada para todos nuestros tipos.
 
-export * from './home.types';
-export * from './devise.types';
-export * from './profiles.types';
-export * from './users.types';
-export * from './sessions.types';
-export * from './dashboard.types';
-export * from './browse.types';
-export * from './discover_sessions.types';
-export * from './leaderboard.types'
+export * from "./home.types";
+export * from "./devise.types";
+export * from "./profiles.types";
+export * from "./users.types";
+export * from "./sessions.types";
+export * from "./dashboard.types";
+export * from "./browse.types";
+export * from "./discover_sessions.types";
+export * from "./leaderboard.types";
+export * from "./admin.types";
 
 export interface LocaleData {
   en_url: string;
   es_url: string;
-  current_locale: 'en' | 'es';
+  current_locale: "en" | "es";
 }
 
 export interface UserData {

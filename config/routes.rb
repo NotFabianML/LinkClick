@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     get "/dashboard", to: "dashboard#index"
     get "/browse", to: "browse#index"
     get "/leaderboard", to: "leaderboard#index"
+    get "/chat", to: "chat#index"
 
     resources :users, only: [ :index, :show ]
     resource :profile, only: [ :show, :edit, :update, :destroy ]
@@ -12,6 +13,19 @@ Rails.application.routes.draw do
       member do
         post :join
         patch :notepad
+      end
+    end
+
+    namespace :admin do
+      get "dashboard", to: "dashboard#index"
+      resources :users, only: [ :index, :edit, :update, :destroy ] do
+        member do
+          patch :toggle_status
+        end
+
+        collection do
+          get :export
+        end
       end
     end
   end

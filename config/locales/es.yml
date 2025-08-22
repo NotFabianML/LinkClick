@@ -509,3 +509,84 @@ es:
           legendary: "Legendario"
       quick_stats:
         growth: "Crecimiento este mes"
+      
+  admin_page:
+    header:
+      breadcrumb: "Admin"
+      title: "Panel de Administración"
+      subtitle: "Gestiona usuarios, monitorea la actividad de la plataforma y visualiza analíticas."
+      export_button: "Exportar Datos"
+      add_user_button: "Añadir Usuario"
+      exporting_button: "Exportando..."
+    sidebar:
+      title: "Secciones de Admin"
+      users:
+        title: "Gestión de Usuarios"
+        description: "Gestionar todos los usuarios"
+      analytics:
+        title: "Analíticas"
+        description: "Ver estadísticas"
+      settings:
+        title: "Ajustes"
+        description: "Configuración"
+    users_tab:
+      title: "Gestión de Usuarios"
+      subtitle: "Gestiona todos los usuarios de la plataforma y sus roles."
+      selected_badge: "%{count} seleccionados"
+      email_button: "Email"
+      delete_button: "Eliminar"
+      filters:
+        search_placeholder: "Buscar por nombre o email..."
+        all_roles: "Todos los Roles"
+        teachers: "Profesores"
+        students: "Estudiantes"
+        all_status: "Todos los Estados"
+        active: "Activo"
+        inactive: "Inactivo"
+        more_filters: "Más Filtros"
+      table_headers:
+        user: "Usuario"
+        role_rating: "Rol y Rating"
+        activity: "Actividad"
+        status: "Estado"
+        location: "Ubicación"
+        actions: "Acciones"
+      user_stats:
+        sessions_created: "%{count} sesiones creadas"
+        sessions_joined: "%{count} sesiones unidas"
+      no_users_found:
+        title: "No se encontraron usuarios"
+        subtitle: "Intenta ajustar tus criterios de búsqueda o filtros."
+      actions:
+        view_details: "Ver Detalles"
+        deactivate_user: "Desactivar Usuario"
+        activate_user: "Activar Usuario"
+      details_modal:
+        title: "Detalles del Usuario"
+        description: "Información detallada sobre %{name}"
+        join_date: "Fecha de Registro"
+        last_active: "Última Actividad"
+        rating: "Calificación"
+        location: "Ubicación"
+      delete_modal:
+        title: "¿Estás seguro?"
+        description: "Esta acción no se puede deshacer. Esto eliminará permanentemente la cuenta del usuario."
+        cancel: "Cancelar"
+        confirm: "Eliminar"
+    analytics_tab:
+      title: "Analíticas de la Plataforma"
+      subtitle: "Resumen completo de la actividad de la plataforma y la participación de los usuarios."
+      # ...
+    settings_tab:
+      title: "Ajustes de la Plataforma"
+      subtitle: "Configura los ajustes generales de la plataforma y las preferencias administrativas."
+      # ...
+    toasts:
+      export_success: "Los datos de usuario han sido exportados correctamente."
+      export_error: "No se pudieron exportar los datos de usuario."
+      user_toggle_status_success: "El estado del usuario ha sido actualizado correctamente."
+      user_toggle_status_error: "No se pudo actualizar el estado del usuario."
+
+  user_status:
+    active: "Activo"
+    inactive: "Inactivo"

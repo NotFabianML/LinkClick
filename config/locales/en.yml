@@ -507,3 +507,84 @@ en:
           legendary: "Legendary"
       quick_stats:
         growth: "Growth this month"
+
+  admin_page:
+    header:
+      breadcrumb: "Admin"
+      title: "Admin Dashboard"
+      subtitle: "Manage users, monitor platform activity, and view comprehensive analytics."
+      export_button: "Export Data"
+      add_user_button: "Add User"
+      exporting_button: "Exporting..."
+    sidebar:
+      title: "Admin Sections"
+      users:
+        title: "User Management"
+        description: "Manage all users"
+      analytics:
+        title: "Analytics"
+        description: "View platform stats"
+      settings:
+        title: "Settings"
+        description: "Platform config"
+    users_tab:
+      title: "User Management"
+      subtitle: "Manage all platform users and their roles."
+      selected_badge: "%{count} selected"
+      email_button: "Email"
+      delete_button: "Delete"
+      filters:
+        search_placeholder: "Search users by name or email..."
+        all_roles: "All Roles"
+        teachers: "Teachers"
+        students: "Students"
+        all_status: "All Status"
+        active: "Active"
+        inactive: "Inactive"
+        more_filters: "More Filters"
+      table_headers:
+        user: "User"
+        role_rating: "Role & Rating"
+        activity: "Activity"
+        status: "Status"
+        location: "Location"
+        actions: "Actions"
+      user_stats:
+        sessions_created: "%{count} sessions created"
+        sessions_joined: "%{count} sessions joined"
+      no_users_found:
+        title: "No users found"
+        subtitle: "Try adjusting your search criteria or filters."
+      actions:
+        view_details: "View Details"
+        deactivate_user: "Deactivate User"
+        activate_user: "Activate User"
+      details_modal:
+        title: "User Details"
+        description: "Detailed information about %{name}"
+        join_date: "Join Date"
+        last_active: "Last Active"
+        rating: "Rating"
+        location: "Location"
+      delete_modal:
+        title: "Are you sure?"
+        description: "This action cannot be undone. This will permanently delete the user account."
+        cancel: "Cancel"
+        confirm: "Delete"
+    analytics_tab:
+      title: "Platform Analytics"
+      subtitle: "Comprehensive overview of platform activity and user engagement."
+      # ... (Aquí irían más traducciones para la pestaña de analíticas)
+    settings_tab:
+      title: "Platform Settings"
+      subtitle: "Configure platform-wide settings and administrative preferences."
+      # ... (Aquí irían más traducciones para la pestaña de ajustes)
+    toasts:
+      export_success: "User data has been exported successfully."
+      export_error: "Failed to export user data."
+      user_toggle_status_success: "User status has been updated successfully."
+      user_toggle_status_error: "Failed to update user status."
+
+  user_status:
+    active: "Active"
+    inactive: "Inactive"
