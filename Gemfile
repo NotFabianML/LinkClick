@@ -68,7 +68,7 @@ end
 # Shakapacker is a modern webpacker replacement for Rails applications
 gem "shakapacker", "= 8.3"
 # React on Rails is a gem for integrating React with Rails applications
-gem "react_on_rails", "= 14.0.4"
+gem "react_on_rails", "15.0.0"
 # Internationalization support for Rails applications
 gem "rails-i18n"
 # turbo-rails for enhanced navigation and interactivity
