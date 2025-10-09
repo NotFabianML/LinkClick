@@ -66,7 +66,7 @@ group :test do
 end
 
 # Shakapacker is a modern webpacker replacement for Rails applications
-gem "shakapacker", "= 8.3"
+gem "shakapacker", "9.1.0"
 # React on Rails is a gem for integrating React with Rails applications
 gem "react_on_rails", "= 14.0.4"
 # Internationalization support for Rails applications
